@@ -6,6 +6,61 @@ endif
 " run these commands for this vimrc to work:
 " sudo pip3 install neovim
 
+" sync vimrc
+let $vimrcsync_folder = $HOME . '/.vim/vimrcsync'
+let $vimrcsync_usrfile = $vimrcsync_folder . '/usr.usr'
+let $vimrcsync_passfile = $vimrcsync_folder . '/pass.pass'
+let $vimrcsync_gitfolder = $vimrcsync_folder . '/git'
+function SetupVimRcSync()
+	if empty(glob($vimrcsync_usrfile)) || empty(glob($vimrcsync_passfile))
+		echo "vimrc sync credentials not found."
+		let username = input('Enter github username: ')
+		let password = input('Enter github password: ')
+		silent !echo "$username" > $vimrcsync_usrfile 
+		silent !echo "$password" > $vimrcsync_passfile 
+		echo "credentials saved"
+	endif
+	if !empty(glob($vimrcsync_usrfile)) && !empty(glob($vimrcsync_passfile))
+		silent let $gitusr = join(readfile($vimrcsync_usrfile), "\n")
+		silent let $gitpass = join(readfile($vimrcsync_passfile), "\n")
+		if !isdirectory($vimrcsync_gitfolder)
+			silent let $cloneCmd = "git clone https://" . $gitusr . ":" . $gitpass . "@github.com/PrimeVest/vimrc.git " . $vimrcsync_gitfolder
+			silent ! $cloneCmd
+		endif
+		silent let $pullCmd = "git -C " . $vimrcsync_gitfolder . " pull"
+		silent ! $pullCmd
+	endif	
+endfunction
+
+function UploadVimRc()
+	call SetupVimRcSync()
+	silent let $copyCmd = "cp " . $HOME . "/.vimrc " . $vimrcsync_gitfolder . "/vimrc"
+	silent let $addCmd = "git -C " . $vimrcsync_gitfolder . " add ."
+	silent let $commitCmd = "git -C " . $vimrcsync_gitfolder . " commit -m \"updated vimrc\""
+	" silent let $pushCmd = "git -C " . $vimrcsync_gitfolder . " push"
+	! $copyCmd
+	! $addCmd
+	! $commitCmd
+	" silent ! $pushCmd
+	" :redraw!
+endfunction
+
+function DownloadVimRc()
+	echo "downloading vimrc...."
+	call SetupVimRcSync()
+	" silent ! rm -rdf ~/.vimrc
+	
+endfunction
+
+if executable('git')
+	call SetupVimRcSync()
+endif
+
+command! UploadVimRc call UploadVimRc()
+command! DownloadVimRc call DownloadVimRc()
+command! SetupVimRcSync call SetupVimRcSync()
+
+
 silent !dpkg -s build-essential 2>/dev/null >/dev/null || sudo apt-get install build-essential
 silent !dpkg -s cmake 2>/dev/null >/dev/null || sudo apt-get install cmake
 silent !dpkg -s python-dev 2>/dev/null >/dev/null || sudo apt-get install python-dev
