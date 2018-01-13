@@ -86,12 +86,12 @@ set runtimepath+=$GOROOT/misc/vim
 set rtp+=~/.vim/bundle/vundle/
 call vundle#begin()
 
-" Plugin 'valloric/youcompleteme'
+Plugin 'valloric/youcompleteme'
 Plugin 'scrooloose/nerdtree'
 Plugin 'bling/vim-airline'
 " Plugin 'scrooloose/syntastic'
 Plugin 'kien/ctrlp.vim'
-Plugin 'nsf/gocode', {'rtp': 'vim/'}
+Plugin 'nsf/gocode'
 Plugin 'fatih/vim-go'
 Plugin 'easymotion/vim-easymotion'
 
@@ -187,9 +187,10 @@ map ,l :bp
 nmap ,n :let @s=@<CR>viw"ay/<C-r>a<CR>:let @"=@s<CR>
 
 " Save
-noremap <silent> <C-W>  :update<CR>
-vnoremap <silent> <C-W> <C-C>:update<CR>
-inoremap <silent> <C-W> <C-O>:update<CR>
+map <C-w> <Esc>:w<CR>
+
+" Build / Run
+autocmd BufNewFile,BufRead *.go  map <C-b> <Esc>:GoBuild<CR>
 
 " Switch windows
 nmap <silent> <S-Up> :wincmd k<CR>
