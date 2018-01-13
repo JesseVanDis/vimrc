@@ -46,10 +46,9 @@ function UploadVimRc()
 endfunction
 
 function DownloadVimRc()
-	echo "downloading vimrc...."
 	call SetupVimRcSync()
-	" silent ! rm -rdf ~/.vimrc
-	
+	silent let $copyCmd = "cp " . $vimrcsync_gitfolder . "/vimrc" . $HOME . "/.vimrc "
+	:redraw!
 endfunction
 
 command! UploadVimRc call UploadVimRc()
