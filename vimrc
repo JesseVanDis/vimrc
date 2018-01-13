@@ -37,12 +37,13 @@ function UploadVimRc()
 	silent let $copyCmd = "cp " . $HOME . "/.vimrc " . $vimrcsync_gitfolder . "/vimrc"
 	silent let $addCmd = "git -C " . $vimrcsync_gitfolder . " add ."
 	silent let $commitCmd = "git -C " . $vimrcsync_gitfolder . " commit -m \"updated vimrc\""
-	" silent let $pushCmd = "git -C " . $vimrcsync_gitfolder . " push"
-	! $copyCmd
-	! $addCmd
-	! $commitCmd
-	" silent ! $pushCmd
-	" :redraw!
+	silent let $pushCmd = "git -C " . $vimrcsync_gitfolder . " push"
+	silent ! $copyCmd
+	silent ! $addCmd
+	silent ! $commitCmd
+	silent ! $pushCmd
+	:redraw!
+	echo $commitCmd
 endfunction
 
 function DownloadVimRc()
