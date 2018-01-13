@@ -86,15 +86,12 @@ set runtimepath+=$GOROOT/misc/vim
 set rtp+=~/.vim/bundle/vundle/
 call vundle#begin()
 
-Plugin 'valloric/youcompleteme'
+" Plugin 'valloric/youcompleteme'
 Plugin 'scrooloose/nerdtree'
 Plugin 'bling/vim-airline'
-Plugin 'scrooloose/syntastic'
+" Plugin 'scrooloose/syntastic'
 Plugin 'kien/ctrlp.vim'
 Plugin 'nsf/gocode', {'rtp': 'vim/'}
-"Plugin 'roxma/nvim-yarp'
-"Plugin 'roxma/vim-hug-neovim-rpc'
-"Plugin 'shougo/deoplete.nvim'
 Plugin 'fatih/vim-go'
 Plugin 'easymotion/vim-easymotion'
 
@@ -183,8 +180,8 @@ imap <C-h> <Right>
 map ,e <esc>:NERDTreeToggle<CR>
 map <C-Up> 10k
 map <C-Down> 10j
-map <C-Tab> :bn
-map <C-S-Tab> :bp
+map ,h :bn
+map ,l :bp
 
 " Start search with word under cursor (and perserve default registry)
 nmap ,n :let @s=@<CR>viw"ay/<C-r>a<CR>:let @"=@s<CR>
