@@ -43,7 +43,6 @@ function UploadVimRc()
 	silent ! $commitCmd
 	silent ! $pushCmd
 	:redraw!
-	echo $commitCmd
 endfunction
 
 function DownloadVimRc()
@@ -53,14 +52,8 @@ function DownloadVimRc()
 	
 endfunction
 
-if executable('git')
-	call SetupVimRcSync()
-endif
-
 command! UploadVimRc call UploadVimRc()
 command! DownloadVimRc call DownloadVimRc()
-command! SetupVimRcSync call SetupVimRcSync()
-
 
 silent !dpkg -s build-essential 2>/dev/null >/dev/null || sudo apt-get install build-essential
 silent !dpkg -s cmake 2>/dev/null >/dev/null || sudo apt-get install cmake
