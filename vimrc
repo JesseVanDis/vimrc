@@ -38,7 +38,8 @@ function UploadVimRc()
 	silent let $addCmd = "git -C " . $vimrcsync_gitfolder . " add ."
 	" silent let $commitCmd = "git -C " . $vimrcsync_gitfolder . " commit -m \"updated vimrc\""
 	
-	silent let $commitCmd = "git -C /home/jesse/.vim/vimrcsync/git commit -m \"test\""
+	" silent let $commitCmd = "git -C /home/jesse/.vim/vimrcsync/git commit -m \"test\""
+	silent let $commitCmd = "git -C " . $vimrcsync_gitfolder . " commit -m \"test\""
 	
 	silent let $pushCmd = "git -C " . $vimrcsync_gitfolder . " push"
 	silent ! $copyCmd
