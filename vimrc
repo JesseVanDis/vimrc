@@ -182,16 +182,18 @@ map <C-Up> 10k
 map <C-Down> 10j
 map ,h :bn
 map ,l :bp
+autocmd BufNewFile,BufRead *.go noremap <C-g> <Esc>:GoReferrers<CR>
 
 " Start search with word under cursor (and perserve default registry)
 nmap ,n :let @s=@<CR>viw"ay/<C-r>a<CR>:let @"=@s<CR>
 
 " Save
 map <C-w> <Esc>:w<CR>
-autocmd BufNewFile,BufRead *.go  noremap <C-w> <Esc>:w<CR>:GoInstallBinaries<CR>
 
 " Build / Run
-autocmd BufNewFile,BufRead *.go  map <C-b> <Esc>:GoBuild<CR>:GoInstallBinaries<CR>
+" Workaround https://github.com/fatih/vim-go/issues/1477
+autocmd BufNewFile,BufRead *.go  GoInstallBinaries 
+autocmd BufNewFile,BufRead *.go  map <C-b> <Esc>:w<CR><Esc>:GoBuild<CR>:GoInstallBinaries<CR>
 
 " Switch windows
 nmap <silent> <S-Up> :wincmd k<CR>
