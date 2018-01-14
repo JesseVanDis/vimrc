@@ -182,6 +182,7 @@ map <C-Up> 10k
 map <C-Down> 10j
 map ,h :bn
 map ,l :bp
+autocmd BufNewFile,BufRead *.go  map <C-]> <Esc>:GoDef<CR>
 
 " Start search with word under cursor (and perserve default registry)
 nmap ,n :let @s=@<CR>viw"ay/<C-r>a<CR>:let @"=@s<CR>
