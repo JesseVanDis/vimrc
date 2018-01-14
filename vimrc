@@ -182,16 +182,16 @@ map <C-Up> 10k
 map <C-Down> 10j
 map ,h :bn
 map ,l :bp
-autocmd BufNewFile,BufRead *.go  map ,d <Esc>:GoDef<CR>
 
 " Start search with word under cursor (and perserve default registry)
 nmap ,n :let @s=@<CR>viw"ay/<C-r>a<CR>:let @"=@s<CR>
 
 " Save
 map <C-w> <Esc>:w<CR>
+autocmd BufNewFile,BufRead *.go  noremap <C-w> <Esc>:w<CR>:GoInstallBinaries<CR>
 
 " Build / Run
-autocmd BufNewFile,BufRead *.go  map <C-b> <Esc>:GoBuild<CR>
+autocmd BufNewFile,BufRead *.go  map <C-b> <Esc>:GoBuild<CR>:GoInstallBinaries<CR>
 
 " Switch windows
 nmap <silent> <S-Up> :wincmd k<CR>
@@ -284,6 +284,7 @@ let g:syntastic_python_checkers=['python3', 'flake8']
 let g:deoplete#enable_at_startup = 1
 
 let g:go_auto_sameids = 1
+let g:go_def_mapping_enabled = 1
 
 filetype indent on
 
