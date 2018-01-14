@@ -182,7 +182,7 @@ map <C-Up> 10k
 map <C-Down> 10j
 map ,h :bn
 map ,l :bp
-autocmd BufNewFile,BufRead *.go  map <C-]> <Esc>:GoDef<CR>
+autocmd BufNewFile,BufRead *.go  map ,d <Esc>:GoDef<CR>
 
 " Start search with word under cursor (and perserve default registry)
 nmap ,n :let @s=@<CR>viw"ay/<C-r>a<CR>:let @"=@s<CR>
@@ -242,6 +242,9 @@ autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
 autocmd FileType sql set omnifunc=sqlcomplete#Complete
 autocmd FileType java setlocal omnifunc=javacomplete#Complete
+autocmd FileType go setlocal omnifunc=gocomplete#Complete
+
+" let g:neocomplcache_omni_patterns.go = '\h\w*%.'
 
 autocmd InsertEnter,InsertLeave * set cul!   " Indicate insert mode by changing selected line layout
 
@@ -286,4 +289,7 @@ filetype indent on
 
 hi EasyMotionTarget2First ctermbg=none ctermfg=red
 hi EasyMotionTarget2Second ctermbg=none ctermfg=brown
+
+
+
 
