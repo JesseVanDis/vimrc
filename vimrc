@@ -276,11 +276,11 @@ set statusline+=%*
 set showtabline=2
 
 set wildmenu " display all matching files when we tab complete
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.js,*.html,*.mk,*.scala,*.class,*.jar,*.json,*.*~,*/.git/*,*/server,*/scripts,*/tools,*/modules/boost-1.53.0,*/modules/boost_regexp,*/client/build/android,*/client/build/emscripten
+set wildignore+=*/tmp/*,*.so,*.swp,*.lace,*.cmd,*.zip,*.js,*.html,*.mk,*.scala,*.class,*.jar,*.json,*.*~,*/.git/*,*/library/thirdparty,*/client/build/linux/debug/shaders,*/client/build/linux/debug/dataschema,*/client/build/linux/debug/shader,*/client/ipa,*/configuration,*/server,*/scripts,*/tools,*/modules/boost-1.53.0,*/modules/boost_regexp,*/client/build/android,*/client/build/emscripten
 
 let g:ctrlp_custom_ignore = {
 	\ 'dir':  '\v[\/]\.(git|hg|svn)$',
-	\ 'file': '\v\.(js|json|dll|class|scala|html)$',
+	\ 'file': '\v\.(js|json|dll|class|scala|html|cmd|lace)$',
 	\ 'link': 'SOME_BAD_SYMBOLIC_LINKS',
 	\ }  
 
