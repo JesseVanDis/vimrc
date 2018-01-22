@@ -185,6 +185,8 @@ map <C-Down> 10j
 map ,h :bn
 map ,l :bp
 autocmd BufNewFile,BufRead *.go noremap <C-g> <Esc>:GoReferrers<CR>
+autocmd BufNewFile,BufRead *.cpp nnoremap ,o <Esc>:e %:r.hpp<CR>
+autocmd BufNewFile,BufRead *.hpp nnoremap ,o <Esc>:e %:r.cpp<CR>
 
 " Start search with word under cursor (and perserve default registry)
 nmap ,n :let @s=@<CR>viw"ay/<C-r>a<CR>:let @"=@s<CR>
@@ -258,14 +260,14 @@ let g:airline#extensions#tabline#enabled = 1
 
 let g:go_fmt_options = "-tabs=false -tabwidth=4"
 let g:go_highlight_operators = 1
-"let g:go_highlight_function_arguments = 1
+" let g:go_highlight_function_arguments = 1
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
 let g:go_highlight_types = 1
 let g:go_highlight_extra_types = 1
 let g:go_highlight_build_constraints = 1
-"let g:go_highlight_generate_tags = 1
-"let g:go_highlight_fields = 1
+" let g:go_highlight_generate_tags = 1
+" let g:go_highlight_fields = 1
 
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
@@ -275,6 +277,12 @@ set showtabline=2
 
 set wildmenu " display all matching files when we tab complete
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.js,*.html,*.mk,*.scala,*.class,*.jar,*.json,*.*~,*/.git/*,*/server,*/scripts,*/tools,*/modules/boost-1.53.0,*/modules/boost_regexp,*/client/build/android,*/client/build/emscripten
+
+let g:ctrlp_custom_ignore = {
+	\ 'dir':  '\v[\/]\.(git|hg|svn)$',
+	\ 'file': '\v\.(js|json|dll|class|scala|html)$',
+	\ 'link': 'SOME_BAD_SYMBOLIC_LINKS',
+	\ }  
 
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
@@ -301,7 +309,7 @@ filetype indent on
 hi EasyMotionTarget2First ctermbg=none ctermfg=red
 hi EasyMotionTarget2Second ctermbg=none ctermfg=brown
 
-"===================================================================
+" ===================================================================
 " Ctags
 " = cd to the project directory
 " - sudo apt-get install exuberant-ctags
