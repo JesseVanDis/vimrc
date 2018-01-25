@@ -59,8 +59,6 @@ silent !dpkg -s build-essential 2>/dev/null >/dev/null || sudo apt-get install b
 silent !dpkg -s cmake 2>/dev/null >/dev/null || sudo apt-get install cmake
 silent !dpkg -s python-dev 2>/dev/null >/dev/null || sudo apt-get install python-dev
 silent !dpkg -s python3-dev 2>/dev/null >/dev/null || sudo apt-get install python3-dev
-silent !dpkg -s cscope 2>/dev/null >/dev/null || sudo apt-get install cscope
-silent !dpkg -s exuberant-ctags 2>/dev/null >/dev/null || sudo apt-get install exuberant-ctags
 
 if has("python3")
   set pyxversion=3
@@ -185,8 +183,6 @@ map <C-Down> 10j
 map ,h :bn
 map ,l :bp
 autocmd BufNewFile,BufRead *.go noremap <C-g> <Esc>:GoReferrers<CR>
-autocmd BufNewFile,BufRead *.cpp nnoremap ,o <Esc>:e %:r.hpp<CR>
-autocmd BufNewFile,BufRead *.hpp nnoremap ,o <Esc>:e %:r.cpp<CR>
 
 " Start search with word under cursor (and perserve default registry)
 nmap ,n :let @s=@<CR>viw"ay/<C-r>a<CR>:let @"=@s<CR>
@@ -248,7 +244,7 @@ autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
 autocmd FileType sql set omnifunc=sqlcomplete#Complete
 autocmd FileType java setlocal omnifunc=javacomplete#Complete
-autocmd FileType go setlocal omnifunc=gocomplete#Complete
+" autocmd FileType go setlocal omnifunc=gocomplete#Complete
 
 " let g:neocomplcache_omni_patterns.go = '\h\w*%.'
 
@@ -258,16 +254,17 @@ let g:ctrlp_by_filename = 1
 
 let g:airline#extensions#tabline#enabled = 1
 
-let g:go_fmt_options = "-tabs=false -tabwidth=4"
+let g:go_fmt_command = "goimports"
+" let g:go_fmt_options = "-tabs=false -tabwidth=4"
 let g:go_highlight_operators = 1
-" let g:go_highlight_function_arguments = 1
+"let g:go_highlight_function_arguments = 1
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
 let g:go_highlight_types = 1
 let g:go_highlight_extra_types = 1
 let g:go_highlight_build_constraints = 1
-" let g:go_highlight_generate_tags = 1
-" let g:go_highlight_fields = 1
+"let g:go_highlight_generate_tags = 1
+"let g:go_highlight_fields = 1
 
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
@@ -276,13 +273,6 @@ set statusline+=%*
 set showtabline=2
 
 set wildmenu " display all matching files when we tab complete
-set wildignore+=*/tmp/*,*.so,*.swp,*.lace,*.cmd,*.zip,*.js,*.html,*.mk,*.scala,*.class,*.jar,*.json,*.*~,*/.git/*,*/library/thirdparty,*/client/build/linux/debug/shaders,*/client/build/linux/debug/dataschema,*/client/build/linux/debug/shader,*/client/ipa,*/configuration,*/server,*/scripts,*/tools,*/modules/boost-1.53.0,*/modules/boost_regexp,*/client/build/android,*/client/build/emscripten
-
-let g:ctrlp_custom_ignore = {
-	\ 'dir':  '\v[\/]\.(git|hg|svn)$',
-	\ 'file': '\v\.(js|json|dll|class|scala|html|cmd|lace)$',
-	\ 'link': 'SOME_BAD_SYMBOLIC_LINKS',
-	\ }  
 
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
@@ -293,11 +283,6 @@ let g:syntastic_go_checkers = ['go', 'govet']
 let g:syntastic_java_checkers=['javac']
 let g:syntastic_java_javac_config_file_enabled = 1
 let g:syntastic_python_checkers=['python3', 'flake8']
-let g:syntastic_cpp_checkers = ['gcc']
-let g:syntastic_cpp_compiler = 'g++'
-let g:syntastic_cpp_compiler_options = '-std=c++11'
-let g:syntastic_cpp_check_header = 1
-let g:syntastic_cpp_auto_refresh_includes = 1
 
 let g:deoplete#enable_at_startup = 1
 
@@ -309,9 +294,6 @@ filetype indent on
 hi EasyMotionTarget2First ctermbg=none ctermfg=red
 hi EasyMotionTarget2Second ctermbg=none ctermfg=brown
 
-" ===================================================================
-" Ctags
-" = cd to the project directory
-" - sudo apt-get install exuberant-ctags
-" - ctags -R .
+
+
 
