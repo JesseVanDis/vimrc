@@ -182,6 +182,7 @@ map <C-Up> 10k
 map <C-Down> 10j
 map ,h :bn
 map ,l :bp
+vnoremap <F3> y/<C-R>"<CR>
 autocmd BufNewFile,BufRead *.go noremap <C-g> <Esc>:GoReferrers<CR>
 
 " Start search with word under cursor (and perserve default registry)
