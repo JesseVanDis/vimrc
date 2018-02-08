@@ -73,6 +73,7 @@ else
 	let $GOROOT = '/usr/lib/go'
 endif
 let $PATH .= ':' . $GOPATH
+let $PATH .= ':' . $HOME . '/go/bin/dlv'
 
 " Install vundle plugin
 if !isdirectory($HOME . '/.vim/bundle/vundle')
@@ -94,6 +95,10 @@ Plugin 'kien/ctrlp.vim'
 Plugin 'nsf/gocode'
 Plugin 'fatih/vim-go'
 Plugin 'easymotion/vim-easymotion'
+" Golang debugging:
+Plugin 'Shougo/vimshell.vim'
+Plugin 'Shougo/vimproc.vim'
+Plugin 'sebdah/vim-delve'
 
 " All of your Plugins must be added before the following line
 call vundle#end()
@@ -185,8 +190,8 @@ map ,j :bn<CR>
 vnoremap <F3> y/<C-R>"<CR>
 nnoremap ff <Esc>:vimgrep // **/*.go **/*.js **/*.html<C-b><Right><Right><Right><Right><Right><Right><Right><Right><Right>
 vnoremap ff <Esc>:let @s=@<CR>gv"ay:let @"=@s<CR>:vimgrep /<C-r>a/ **/*.go **/*.js **/*.html<CR>:clist<CR>
-nnoremap fk :cp<CR>:clist<CR>
-nnoremap fj :cn<CR>:clist<CR>
+nnoremap fk :cp<CR>
+nnoremap fj :cn<CR>
 autocmd BufNewFile,BufRead *.go noremap <C-g> <Esc>:GoReferrers<CR>
 
 " Start search with word under cursor (and perserve default registry)
