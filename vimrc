@@ -183,6 +183,7 @@ map <C-Down> 10j
 map ,k :bp<CR>
 map ,j :bn<CR>
 vnoremap <F3> y/<C-R>"<CR>
+nnoremap ff <Esc>:vimgrep // **/*.go **/*.js **/*.html<C-b><Right><Right><Right><Right><Right><Right><Right><Right><Right>
 vnoremap ff <Esc>:let @s=@<CR>gv"ay:let @"=@s<CR>:vimgrep /<C-r>a/ **/*.go **/*.js **/*.html<CR>:clist<CR>
 nnoremap fk :cp<CR>:clist<CR>
 nnoremap fj :cn<CR>:clist<CR>
