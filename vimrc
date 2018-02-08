@@ -180,12 +180,12 @@ imap <C-h> <Right>
 map ,e <esc>:NERDTreeToggle<CR>
 map <C-Up> 10k
 map <C-Down> 10j
-map ,h :bp<CR>
-map ,l :bn<CR>
+map ,k :bp<CR>
+map ,j :bn<CR>
 vnoremap <F3> y/<C-R>"<CR>
-vnoremap <C-f> <Esc>:let @s=@<CR>gv"ay:let @"=@s<CR>:vimgrep /<C-r>a/ **/*.go **/*.js **/*.html<CR>
-nnoremap fh :cp<CR>
-nnoremap fl :cn<CR>
+vnoremap ff <Esc>:let @s=@<CR>gv"ay:let @"=@s<CR>:vimgrep /<C-r>a/ **/*.go **/*.js **/*.html<CR>:clist<CR>
+nnoremap fk :cp<CR>:clist<CR>
+nnoremap fj :cn<CR>:clist<CR>
 autocmd BufNewFile,BufRead *.go noremap <C-g> <Esc>:GoReferrers<CR>
 
 " Start search with word under cursor (and perserve default registry)
