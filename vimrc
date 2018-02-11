@@ -73,7 +73,7 @@ else
 	let $GOROOT = '/usr/lib/go'
 endif
 let $PATH .= ':' . $GOPATH
-let $PATH .= ':' . $HOME . '/go/bin/dlv'
+let $PATH .= ':' . $HOME . '/go/bin'
 
 " Install vundle plugin
 if !isdirectory($HOME . '/.vim/bundle/vundle')
@@ -95,10 +95,7 @@ Plugin 'kien/ctrlp.vim'
 Plugin 'nsf/gocode'
 Plugin 'fatih/vim-go'
 Plugin 'easymotion/vim-easymotion'
-" Golang debugging:
-Plugin 'Shougo/vimshell.vim'
-Plugin 'Shougo/vimproc.vim'
-Plugin 'sebdah/vim-delve'
+Plugin 'joonty/vdebug'
 
 " All of your Plugins must be added before the following line
 call vundle#end()
@@ -109,6 +106,11 @@ set nocompatible
 if !isdirectory($HOME . '/.vim/bundle/youcompleteme/didbuild')
     silent !cd ~/.vim/bundle/youcompleteme && ./install.py --clang-completer
     silent !mkdir -p ~/.vim/bundle/youcompleteme/didbuild
+endif
+
+" Instal vim proc for golang debugging
+if isdirectory($HOME . '/.vim/bundle/vimproc.vim')
+    silent !cd ~/.vim/bundle/vimproc.vim && make
 endif
 
 " Only do this part when compiled with support for autocommands.
@@ -160,6 +162,7 @@ endif
 packadd matchit
 
 autocmd vimenter * NERDTree
+autocmd vimenter * wincmd l
 
 " .======================================.
 " ||            MAPPINGS                ||
@@ -198,12 +201,16 @@ autocmd BufNewFile,BufRead *.go noremap <C-g> <Esc>:GoReferrers<CR>
 nmap ,n :let @s=@<CR>viw"ay/<C-r>a<CR>:let @"=@s<CR>
 
 " Save
-map <C-w> <Esc>:w<CR>
+" map <C-w> <Esc>:w<CR>
 
 " Build / Run
 " Workaround https://github.com/fatih/vim-go/issues/1477
 autocmd BufNewFile,BufRead *.go  GoInstallBinaries 
-autocmd BufNewFile,BufRead *.go  map <C-b> <Esc>:w<CR><Esc>:GoBuild<CR>:GoInstallBinaries<CR>
+autocmd BufNewFile,BufRead *.go  noremap <C-b> <Esc>:w<CR><Esc>:GoBuild<CR>:GoInstallBinaries<CR>
+" autocmd BufNewFile,BufRead *.go  noremap <F5> <Esc>:!killall -9 debug<CR>:redir @y<CR>:pwd<CR>:redir END<CR>:redir @z<CR>:echo fnamemodify('<C-r>y', ':t')<CR>:redir END<CR>:DlvDebug <C-r>z<BS><BS><BS><C-B><Right><Right><Right><Right><Right><Right><Right><Right><Right><Del><Del><CR>y<CR><C-w>J:res 10<CR>G
+" autocmd BufNewFile,BufRead *.go  noremap <F6> <Esc>:DlvConnect localhost:2345<CR><C-w>J:res 10<CR>
+" autocmd BufNewFile,BufRead *.go  noremap bb <Esc>:DlvToggleBreakpoint<CR>
+noremap bb <Esc>:Breakpoint<CR>
 
 " Switch windows
 nmap <silent> <S-Up> :wincmd k<CR>
@@ -298,6 +305,14 @@ let g:deoplete#enable_at_startup = 1
 
 let g:go_auto_sameids = 1
 let g:go_def_mapping_enabled = 1
+
+if !exists('g:vdebug_options')
+    let g:vdebug_options = {}
+endif
+let g:vdebug_options["break_on_open"] = 0
+let g:vdebug_options["debug_file"] = $HOME . '/.vim/bundle/vdebug/log.log'
+let g:vdebug_options["debug_window_level"] = 2
+let g:vdebug_options["debug_file_level"] = 2
 
 filetype indent on
 
