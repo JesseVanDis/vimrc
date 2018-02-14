@@ -203,6 +203,14 @@ nmap ,n :let @s=@<CR>viw"ay/<C-r>a<CR>:let @"=@s<CR>
 " Save
 " map <C-w> <Esc>:w<CR>
 
+" avoid yanking the text you delete... its anoying
+nnoremap c "_c
+vnoremap c "_c
+nnoremap C "_C
+vnoremap C "_C
+nnoremap x "_x
+xnoremap p pgvy
+
 " Build / Run
 " Workaround https://github.com/fatih/vim-go/issues/1477
 autocmd BufNewFile,BufRead *.go  GoInstallBinaries 
@@ -210,7 +218,7 @@ autocmd BufNewFile,BufRead *.go  noremap <C-b> <Esc>:w<CR><Esc>:GoBuild<CR>:GoIn
 " autocmd BufNewFile,BufRead *.go  noremap <F5> <Esc>:!killall -9 debug<CR>:redir @y<CR>:pwd<CR>:redir END<CR>:redir @z<CR>:echo fnamemodify('<C-r>y', ':t')<CR>:redir END<CR>:DlvDebug <C-r>z<BS><BS><BS><C-B><Right><Right><Right><Right><Right><Right><Right><Right><Right><Del><Del><CR>y<CR><C-w>J:res 10<CR>G
 " autocmd BufNewFile,BufRead *.go  noremap <F6> <Esc>:DlvConnect localhost:2345<CR><C-w>J:res 10<CR>
 " autocmd BufNewFile,BufRead *.go  noremap bb <Esc>:DlvToggleBreakpoint<CR>
-noremap bb <Esc>:Breakpoint<CR>
+" noremap bb <Esc>:Breakpoint<CR>
 
 " Switch windows
 nmap <silent> <S-Up> :wincmd k<CR>
