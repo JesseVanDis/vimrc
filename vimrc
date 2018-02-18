@@ -87,15 +87,18 @@ set runtimepath+=$GOROOT/misc/vim
 set rtp+=~/.vim/bundle/vundle/
 call vundle#begin()
 
-Plugin 'valloric/youcompleteme'
+" Plugin 'valloric/youcompleteme'
 Plugin 'scrooloose/nerdtree'
-Plugin 'bling/vim-airline'
+" Plugin 'bling/vim-airline'
 " Plugin 'scrooloose/syntastic'
 Plugin 'kien/ctrlp.vim'
-Plugin 'nsf/gocode'
+" Plugin 'nsf/gocode'
 Plugin 'fatih/vim-go'
+" Plugin 'pangloss/vim-javascript'
 Plugin 'easymotion/vim-easymotion'
 Plugin 'joonty/vdebug'
+Plugin 'w0rp/ale'
+Plugin 'fatih/molokai'
 
 " All of your Plugins must be added before the following line
 call vundle#end()
@@ -191,10 +194,10 @@ map <C-Down> 10j
 map ,k :bp<CR>
 map ,j :bn<CR>
 vnoremap <F3> y/<C-R>"<CR>
-nnoremap ff <Esc>:vimgrep // **/*.go **/*.js **/*.html<C-b><Right><Right><Right><Right><Right><Right><Right><Right><Right>
-vnoremap ff <Esc>:let @s=@<CR>gv"ay:let @"=@s<CR>:vimgrep /<C-r>a/ **/*.go **/*.js **/*.html<CR>:clist<CR>
-nnoremap fk :cp<CR>
-nnoremap fj :cn<CR>
+nnoremap <C-F> <Esc>:vimgrep // **/*.go **/*.js **/*.html<C-b><Right><Right><Right><Right><Right><Right><Right><Right><Right>
+vnoremap <C-F> <Esc>:let @s=@<CR>gv"ay:let @"=@s<CR>:vimgrep /<C-r>a/ **/*.go **/*.js **/*.html<CR>:clist<CR>
+nnoremap <C-H> :cp<CR>
+nnoremap <C-L> :cn<CR>
 autocmd BufNewFile,BufRead *.go noremap <C-g> <Esc>:GoReferrers<CR>
 
 " Start search with word under cursor (and perserve default registry)
@@ -234,6 +237,10 @@ imap ii <Esc>
 " '======================================'
 set wildignore=*.dll,*.o,*.pyc,*.bak,*.exe,*$py.class,*.class
 
+syntax on                                       " enable syntax highlighting
+syntax enable  
+filetype plugin on  
+filetype indent on
 set number
 highlight LineNr ctermfg=grey ctermbg=white     
 set cursorline                                  " highlight cursor line
@@ -246,11 +253,12 @@ set history=50		                            " keep 50 lines of command line hist
 set ruler		                                " show the cursor position all the time
 set showcmd		                                " display incomplete commands
 set incsearch		                            " do incremental searching
-syntax on                                       " enable syntax highlighting
 set hlsearch                                    " switch on highlighting the last used search pattern.
 set mouse=a                                     " enable mouse
 set autowrite                                   " auto-write file when searching for a word or something
 set ignorecase                                  " ignore case when searching with '/'
+set whichwrap+=<,>,h,l,[,]						" Auto-next/prev line when moving cursor beyond end/beginning of line
+
 
 if has("vms")
   set nobackup		" do not keep a backup file, use versions instead
@@ -275,6 +283,8 @@ autocmd FileType java setlocal omnifunc=javacomplete#Complete
 
 autocmd InsertEnter,InsertLeave * set cul!   " Indicate insert mode by changing selected line layout
 
+colorscheme molokai
+
 let g:ctrlp_by_filename = 1
 
 let g:airline#extensions#tabline#enabled = 1
@@ -282,37 +292,38 @@ let g:airline#extensions#tabline#enabled = 1
 let g:go_fmt_command = "goimports"
 " let g:go_fmt_options = "-tabs=false -tabwidth=4"
 let g:go_highlight_operators = 1
-"let g:go_highlight_function_arguments = 1
+let g:go_highlight_function_arguments = 1
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
 let g:go_highlight_types = 1
 let g:go_highlight_extra_types = 1
 let g:go_highlight_build_constraints = 1
-"let g:go_highlight_generate_tags = 1
+let g:go_highlight_structs = 1  
+let g:go_highlight_generate_tags = 1
+let g:go_auto_sameids = 0 " if 1 then it will highlight stuff that is currently under cursor.
+let g:go_def_mapping_enabled = 1
 "let g:go_highlight_fields = 1
 
 set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
+" set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
 set showtabline=2
 
 set wildmenu " display all matching files when we tab complete
 
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-let g:syntastic_enable_signs = 1
-let g:syntastic_go_checkers = ['go', 'govet']
-let g:syntastic_java_checkers=['javac']
-let g:syntastic_java_javac_config_file_enabled = 1
-let g:syntastic_python_checkers=['python3', 'flake8']
+" let g:syntastic_always_populate_loc_list = 1
+" let g:syntastic_auto_loc_list = 1
+" let g:syntastic_check_on_open = 1
+" let g:syntastic_check_on_wq = 0
+" let g:syntastic_enable_signs = 1
+" let g:syntastic_go_checkers = ['go', 'govet']
+" let g:syntastic_java_checkers=['javac']
+" let g:syntastic_java_javac_config_file_enabled = 1
+" let g:syntastic_python_checkers=['python3', 'flake8']
 
 let g:deoplete#enable_at_startup = 1
 
-let g:go_auto_sameids = 1
-let g:go_def_mapping_enabled = 1
 
 if !exists('g:vdebug_options')
     let g:vdebug_options = {}
@@ -322,7 +333,8 @@ let g:vdebug_options["debug_file"] = $HOME . '/.vim/bundle/vdebug/log.log'
 let g:vdebug_options["debug_window_level"] = 2
 let g:vdebug_options["debug_file_level"] = 2
 
-filetype indent on
+let g:javascript_plugin_jsdoc = 1
+
 
 hi EasyMotionTarget2First ctermbg=none ctermfg=red
 hi EasyMotionTarget2Second ctermbg=none ctermfg=brown
