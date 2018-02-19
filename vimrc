@@ -200,6 +200,8 @@ vnoremap <F3> y/<C-R>"<CR>
 nnoremap <C-H> :cp<CR>
 nnoremap <C-L> :cn<CR>
 autocmd BufNewFile,BufRead *.go noremap <C-g> <Esc>:GoReferrers<CR>
+autocmd BufNewFile,BufRead *.hpp nmap ,l :e %:r.cpp<CR>
+autocmd BufNewFile,BufRead *.cpp nmap ,l :e %:r.hpp<CR>
 
 " autocmd BufNewFile,BufRead *.go nnoremap <C-f> <Esc>:vimgrep // **/*.go **/*.js **/*.html<C-b><Right><Right><Right><Right><Right><Right><Right><Right><Right>
 " autocmd BufNewFile,BufRead *.go vnoremap <C-f> <Esc>:let @s=@<CR>gv"ay:let @"=@s<CR>:vimgrep /<C-r>a/ **/*.go **/*.js **/*.html<CR>:clist<CR>
