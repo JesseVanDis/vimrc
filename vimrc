@@ -59,6 +59,8 @@ silent !dpkg -s build-essential 2>/dev/null >/dev/null || sudo apt-get install b
 silent !dpkg -s cmake 2>/dev/null >/dev/null || sudo apt-get install cmake
 silent !dpkg -s python-dev 2>/dev/null >/dev/null || sudo apt-get install python-dev
 silent !dpkg -s python3-dev 2>/dev/null >/dev/null || sudo apt-get install python3-dev
+silent !dpkg -s cscope 2>/dev/null >/dev/null || sudo apt-get install cscope
+silent !dpkg -s exuberant-ctags 2>/dev/null >/dev/null || sudo apt-get install exuberant-ctags
 
 if has("python3")
   set pyxversion=3
@@ -87,7 +89,6 @@ set runtimepath+=$GOROOT/misc/vim
 set rtp+=~/.vim/bundle/vundle/
 call vundle#begin()
 
-" Plugin 'valloric/youcompleteme'
 Plugin 'scrooloose/nerdtree'
 " Plugin 'bling/vim-airline'
 " Plugin 'scrooloose/syntastic'
@@ -99,6 +100,8 @@ Plugin 'easymotion/vim-easymotion'
 Plugin 'joonty/vdebug'
 Plugin 'w0rp/ale'
 Plugin 'fatih/molokai'
+
+Plugin 'valloric/youcompleteme'
 
 " All of your Plugins must be added before the following line
 call vundle#end()
@@ -232,10 +235,14 @@ nmap <silent> <S-Right> :wincmd l<CR>
 " Escape insert mode
 imap ii <Esc>
 
+" Ctags
+nmap ,r :!ctags -R .
+
 " .======================================.
 " ||            SETTINGS                ||
 " '======================================'
-set wildignore=*.dll,*.o,*.pyc,*.bak,*.exe,*$py.class,*.class
+set wildignore+=*.dll,*.o,*.pyc,*.bak,*.exe,*$py.class,*.class
+
 
 syntax on                                       " enable syntax highlighting
 syntax enable  
@@ -340,5 +347,13 @@ hi EasyMotionTarget2First ctermbg=none ctermfg=red
 hi EasyMotionTarget2Second ctermbg=none ctermfg=brown
 
 
+" SCU project
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.js,*.mk,*.scala,*.class,*.jar,*.json,*.*~,*/.git/*,*/server,*/scripts,*/tools,*/modules/boost-1.53.0,*/modules/boost_regexp,*/client/build/android,*/client/build/emscripten
+
+let g:ctrlp_custom_ignore = {
+	\ 'dir':  '\v[\/]\.(git|hg|svn)$',
+	\ 'file': '\v\.(js|json|dll|class|scala|html)$',
+	\ 'link': 'SOME_BAD_SYMBOLIC_LINKS',
+	\ }
 
 
