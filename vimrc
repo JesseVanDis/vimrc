@@ -353,6 +353,7 @@ let g:vdebug_options["debug_file_level"] = 2
 
 let g:javascript_plugin_jsdoc = 1
 
+let g:ycm_confirm_extra_conf = 0
 
 hi EasyMotionTarget2First ctermbg=none ctermfg=red
 hi EasyMotionTarget2Second ctermbg=none ctermfg=brown
