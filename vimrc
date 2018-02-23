@@ -361,6 +361,7 @@ hi EasyMotionTarget2Second ctermbg=none ctermfg=brown
 
 " rr tournament specific
 if isdirectory($HOME . '/projects/rr-tournament')
+	nmap ,r :!../../commands.sh hg<CR><CR>
 	set path+=/home/jvandis/projects/rr-tournament/code/client/build/linux/debug/include
 	set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.js,*.mk,*.scala,*.class,*.jar,*.json,*.*~,*/.git/*,*/server,*/scripts,*/tools,*/modules/boost-1.53.0,*/modules/boost_regexp,*/client/build/android,*/client/build/emscripten
 	let g:ctrlp_custom_ignore = {
