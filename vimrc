@@ -276,7 +276,7 @@ set mouse=a                                     " enable mouse
 set autowrite                                   " auto-write file when searching for a word or something
 set ignorecase                                  " ignore case when searching with '/'
 set whichwrap+=<,>,h,l,[,]						" Auto-next/prev line when moving cursor beyond end/beginning of line
-
+set tags=tags;									" find tags file in current dir, if its not there then parent, then parent ect.
 
 if has("vms")
   set nobackup		" do not keep a backup file, use versions instead
@@ -358,10 +358,11 @@ let g:ycm_confirm_extra_conf = 0
 hi EasyMotionTarget2First ctermbg=none ctermfg=red
 hi EasyMotionTarget2Second ctermbg=none ctermfg=brown
 
-
 " rr tournament specific
 if isdirectory($HOME . '/projects/rr-tournament')
 	nmap ,r :!../../commands.sh hg<CR><CR>
+	" nmap ,t <C-]><CR>:let @f=@%<CR><C-^>ggO<Esc>i#include "/home/jvandis/projects/rr-tournament/code/<Esc>"fp$a"<Esc><C-o>:echo "Added: " @f<CR>
+	nmap ,t <C-]>:let @f=@%<CR><C-^>ggO<Esc>i#include "/home/jvandis/projects/rr-tournament/code/<Esc>"fp$vF.c.hpp"<Esc><C-o>:echo "Added: " @f<CR>
 	set path+=/home/jvandis/projects/rr-tournament/code/client/build/linux/debug/include
 	set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.js,*.mk,*.scala,*.class,*.jar,*.json,*.*~,*/.git/*,*/server,*/scripts,*/tools,*/modules/boost-1.53.0,*/modules/boost_regexp,*/client/build/android,*/client/build/emscripten
 	let g:ctrlp_custom_ignore = {
