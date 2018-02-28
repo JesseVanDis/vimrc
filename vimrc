@@ -275,7 +275,7 @@ set hlsearch                                    " switch on highlighting the las
 set mouse=a                                     " enable mouse
 set autowrite                                   " auto-write file when searching for a word or something
 set ignorecase                                  " ignore case when searching with '/'
-set whichwrap+=<,>,h,l,[,]						" Auto-next/prev line when moving cursor beyond end/beginning of line
+" set whichwrap+=<,>,h,l,[,]						" Auto-next/prev line when moving cursor beyond end/beginning of line
 set tags=tags;									" find tags file in current dir, if its not there then parent, then parent ect.
 
 if has("vms")
