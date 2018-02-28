@@ -101,7 +101,7 @@ Plugin 'joonty/vdebug'
 Plugin 'w0rp/ale'
 Plugin 'fatih/molokai'
 
-Plugin 'valloric/youcompleteme'
+" Plugin 'valloric/youcompleteme'
 
 " All of your Plugins must be added before the following line
 call vundle#end()
@@ -365,6 +365,7 @@ if isdirectory($HOME . '/projects/rr-tournament')
 	nmap ,t <C-]>:let @f=@%<CR><C-^>ggO<Esc>i#include "/home/jvandis/projects/rr-tournament/code/<Esc>"fp$vF.c.hpp"<Esc><C-o>:echo "Added: " @f<CR>
 	set path+=/home/jvandis/projects/rr-tournament/code/client/build/linux/debug/include
 	set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.js,*.mk,*.scala,*.class,*.jar,*.json,*.*~,*/.git/*,*/server,*/scripts,*/tools,*/modules/boost-1.53.0,*/modules/boost_regexp,*/client/build/android,*/client/build/emscripten
+	vnoremap <C-f> <Esc>:let @s=@<CR>gv"ay:let @"=@s<CR>:grep -R -r -i --include=\*.{cpp,hpp,h,bdef,ds} --exclude-dir=*/library/local <C-r>a . <CR>:cw<CR>
 	let g:ctrlp_custom_ignore = {
 				\ 'dir':  '\v[\/]\.(git|hg|svn)$',
 				\ 'file': '\v\.(js|json|dll|class|scala|html)$',
