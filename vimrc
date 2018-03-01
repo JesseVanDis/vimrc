@@ -167,7 +167,7 @@ endif
 " compatile
 packadd matchit
 
-autocmd vimenter * NERDTree
+" autocmd vimenter * NERDTree
 autocmd vimenter * wincmd l
 
 " .======================================.
