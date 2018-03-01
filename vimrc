@@ -101,7 +101,7 @@ Plugin 'joonty/vdebug'
 Plugin 'w0rp/ale'
 Plugin 'fatih/molokai'
 
-" Plugin 'valloric/youcompleteme'
+Plugin 'valloric/youcompleteme'
 
 " All of your Plugins must be added before the following line
 call vundle#end()
@@ -354,6 +354,7 @@ let g:vdebug_options["debug_file_level"] = 2
 let g:javascript_plugin_jsdoc = 1
 
 let g:ycm_confirm_extra_conf = 0
+let g:ycm_show_diagnostics_ui = 0
 
 hi EasyMotionTarget2First ctermbg=none ctermfg=red
 hi EasyMotionTarget2Second ctermbg=none ctermfg=brown
