@@ -210,7 +210,9 @@ autocmd BufNewFile,BufRead *.cpp nmap ,l :e %:r.hpp<CR>
 " autocmd BufNewFile,BufRead *.hpp nnoremap <C-f> <Esc>:vimgrep // **/*.cpp **/*.hpp **/*.html<C-b><Right><Right><Right><Right><Right><Right><Right><Right><Right>
 " autocmd BufNewFile,BufRead *.cpp vnoremap <C-f> <Esc>:let @s=@<CR>gv"ay:let @"=@s<CR>:vimgrep /<C-r>a/ **/*.cpp **/*.hpp **/*.html<CR>:clist<CR>
 " autocmd BufNewFile,BufRead *.hpp vnoremap <C-f> <Esc>:let @s=@<CR>gv"ay:let @"=@s<CR>:vimgrep /<C-r>a/ **/*.cpp **/*.hpp **/*.html<CR>:clist<CR>
-vnoremap <C-f> <Esc>:let @s=@<CR>gv"ay:let @"=@s<CR>:grep -R -r -i --include=\*.{cpp,hpp,h,go,html,bdef,ds,js,c} <C-r>a . <CR>:cw<CR>
+vnoremap ,f <Esc>:let @s=@<CR>gv"ay:let @"=@s<CR>:grep -R -r -i --include=\*.{cpp,hpp,h,go,html,bdef,ds,js,c} <C-r>a . <CR>:cw<CR>
+" nnoremap ,f :grep -R -r -i --include=\*.{cpp,hpp,h,go,html,bdef,ds,js,c}  . \| cw<Left><Left><Left><Left><Left><Left><Left>
+nnoremap ,f :grep -R -r -i --include=\*.{cpp,hpp,h,go,html,bdef,ds,js,c}  . <Left><Left><Left>
 
 " vnoremap <C-f> :grep -R <cword> . <CR>:cw<CR>
 
@@ -374,7 +376,7 @@ if isdirectory($HOME . '/projects/rr-tournament')
 	set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.js,*.mk,*.scala,*.class,*.jar,*.json,*.*~,*/.git/*,*/server,*/scripts,*/tools,*/modules/boost-1.53.0,*/modules/boost_regexp,*/client/build/android,*/client/build/emscripten
 
 	let g:ctrlp_custom_ignore = {
-				\ 'dir':  '\v[\/]\.(git|hg|svn)$',
+				\ 'dir':  '\.git$\|\.hg$\|\.svn$\|library|configuration|modules$',
 				\ 'file': '\v\.(js|json|dll|class|scala|html)$',
 				\ 'link': 'SOME_BAD_SYMBOLIC_LINKS',
 				\ }
