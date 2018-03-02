@@ -360,14 +360,13 @@ hi EasyMotionTarget2First ctermbg=none ctermfg=red
 hi EasyMotionTarget2Second ctermbg=none ctermfg=brown
 
 " rr tournament specific
-
 if isdirectory($HOME . '/projects/rr-tournament')
 	nmap ,r :!../../commands.sh hg<CR><CR>
-	nmap ,t <C-]>:let @f=expand("%:p")<CR><C-^>ggO<Esc>:let @g=expand("%:p:h")<CR>:read !python -c "import os.path; print os.path.relpath('<C-r>f', '<C-r>g')"<CR><CR>i#include "<Esc>$a"<ESC>0ellv$h"fyggdd<C-o><C-o>:echo "Added: " @f<CR>
+	nnoremap ,t <C-]>:let @f=expand("%:p")<CR><C-^>ggO<Esc>:let @g=expand("%:p:h")<CR>:read !python -c "import os.path; print os.path.relpath('<C-r>f', '<C-r>g')"<CR><CR>i#include "<Esc>$a"<ESC>0ellv$h"yyggdd<C-o><C-o>:echo "Added: " @y<CR>
+	nnoremap ,T <C-]>:let @f=expand("%:p")<CR><C-^>ggO<Esc>O<Esc>"fp0i#include "<Esc>$a"<ESC>0ellv$h"yy<C-o>:echo "Added: " @y<CR>
 
 	vnoremap <C-f> <Esc>:let @s=@<CR>gv"ay:let @"=@s<CR>:grep -R -r -i --include=\*.{cpp,hpp,bdef,ds} --exclude-dir=*/library/local <C-r>a . <CR>:cw<CR>
 
-	noremap ,y :read !python -c "import os.path; print os.path.relpath('/foo/bar', '/foo/baz/foo')"
 	
 	set path+=/home/jvandis/projects/rr-tournament/code/client/build/linux/debug/include
 	set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.js,*.mk,*.scala,*.class,*.jar,*.json,*.*~,*/.git/*,*/server,*/scripts,*/tools,*/modules/boost-1.53.0,*/modules/boost_regexp,*/client/build/android,*/client/build/emscripten
