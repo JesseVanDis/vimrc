@@ -109,9 +109,9 @@ filetype plugin indent on
 set nocompatible
 
 " Build youcompleteme
-if !isdirectory($HOME . '/.vim/bundle/youcompleteme/didbuild')
+if !isdirectory($HOME . '/.vim/bundle/youcompleteme_didbuild')
     silent !cd ~/.vim/bundle/youcompleteme && ./install.py --clang-completer
-    silent !mkdir -p ~/.vim/bundle/youcompleteme/didbuild
+    silent !mkdir -p ~/.vim/bundle/youcompleteme_didbuild
 endif
 
 " Instal vim proc for golang debugging
