@@ -363,12 +363,8 @@ hi EasyMotionTarget2Second ctermbg=none ctermfg=brown
 
 if isdirectory($HOME . '/projects/rr-tournament')
 	nmap ,r :!../../commands.sh hg<CR><CR>
-	" nmap ,t <C-]><CR>:let @f=@%<CR><C-^>ggO<Esc>i#include "/home/jvandis/projects/rr-tournament/code/<Esc>"fp$a"<Esc><C-o>:echo "Added: " @f<CR>
-	" nmap ,t <C-]>:let @f=expand("%:p")<CR><C-^>ggO<Esc>i#include "<Esc>"fp$vF.c.hpp"<Esc><C-o>:echo "Added: " @f<CR>
-	nmap ,t <C-]>:let @f=expand("%:p")<CR><C-^>ggO<Esc>:let @g=expand("%:p:h")<CR>:read !python -c "import os.path; print os.path.relpath('<C-r>f', '<C-r>g')"<CR>
+	nmap ,t <C-]>:let @f=expand("%:p")<CR><C-^>ggO<Esc>:let @g=expand("%:p:h")<CR>:read !python -c "import os.path; print os.path.relpath('<C-r>f', '<C-r>g')"<CR><CR>i#include "<Esc>$a"<ESC>0ellv$h"fyggdd<C-o><C-o>:echo "Added: " @f<CR>
 
-	
-	" i#include "<Esc>"fp$vF.c.hpp"<Esc><C-o>:echo "Added: " @f<CR>
 	vnoremap <C-f> <Esc>:let @s=@<CR>gv"ay:let @"=@s<CR>:grep -R -r -i --include=\*.{cpp,hpp,bdef,ds} --exclude-dir=*/library/local <C-r>a . <CR>:cw<CR>
 
 	noremap ,y :read !python -c "import os.path; print os.path.relpath('/foo/bar', '/foo/baz/foo')"
