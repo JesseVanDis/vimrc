@@ -100,7 +100,7 @@ Plugin 'easymotion/vim-easymotion'
 Plugin 'joonty/vdebug'
 Plugin 'w0rp/ale'
 Plugin 'fatih/molokai'
-
+Plugin 'skywind3000/asyncrun.vim'
 Plugin 'valloric/youcompleteme'
 
 " All of your Plugins must be added before the following line
@@ -366,7 +366,6 @@ if isdirectory($HOME . '/projects/rr-tournament')
 	nnoremap ,T <C-]>:let @f=expand("%:p")<CR><C-^>ggO<Esc>O<Esc>"fp0i#include "<Esc>$a"<ESC>0ellv$h"yy<C-o>:echo "Added: " @y<CR>
 
 	vnoremap <C-f> <Esc>:let @s=@<CR>gv"ay:let @"=@s<CR>:grep -R -r -i --include=\*.{cpp,hpp,bdef,ds} --exclude-dir=*/library/local <C-r>a . <CR>:cw<CR>
-
 	
 	set path+=/home/jvandis/projects/rr-tournament/code/client/build/linux/debug/include
 	set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.js,*.mk,*.scala,*.class,*.jar,*.json,*.*~,*/.git/*,*/server,*/scripts,*/tools,*/modules/boost-1.53.0,*/modules/boost_regexp,*/client/build/android,*/client/build/emscripten
