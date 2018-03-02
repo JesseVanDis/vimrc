@@ -368,6 +368,7 @@ if isdirectory($HOME . '/projects/rr-tournament')
 	vnoremap <C-f> <Esc>:let @s=@<CR>gv"ay:let @"=@s<CR>:grep -R -r -i --include=\*.{cpp,hpp,bdef,ds} --exclude-dir=*/library/local <C-r>a . <CR>:cw<CR>
 	
 	nnoremap ,b :copen<CR>:AsyncRun! ../../commands.sh bp<CR>
+	nnoremap <F8> :copen<CR>:AsyncRun! ../../commands.sh s2<CR>
 
 	set path+=/home/jvandis/projects/rr-tournament/code/client/build/linux/debug/include
 	set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.js,*.mk,*.scala,*.class,*.jar,*.json,*.*~,*/.git/*,*/server,*/scripts,*/tools,*/modules/boost-1.53.0,*/modules/boost_regexp,*/client/build/android,*/client/build/emscripten
