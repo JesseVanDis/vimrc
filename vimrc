@@ -356,10 +356,9 @@ let g:go_def_mapping_enabled = 1
 set statusline+=%#warningmsg#
 " set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
-
 set showtabline=2
-
 set wildmenu " display all matching files when we tab complete
+set autoindent
 
 " let g:syntastic_always_populate_loc_list = 1
 " let g:syntastic_auto_loc_list = 1
