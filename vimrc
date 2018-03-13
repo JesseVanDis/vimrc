@@ -61,6 +61,7 @@ silent !dpkg -s python-dev 2>/dev/null >/dev/null || sudo apt-get install python
 silent !dpkg -s python3-dev 2>/dev/null >/dev/null || sudo apt-get install python3-dev
 silent !dpkg -s cscope 2>/dev/null >/dev/null || sudo apt-get install cscope
 silent !dpkg -s exuberant-ctags 2>/dev/null >/dev/null || sudo apt-get install exuberant-ctags
+silent !dpkg -s silversearcher-ag 2>/dev/null >/dev/null || sudo apt-get install silversearcher-ag
 
 if has("python3")
   set pyxversion=3
@@ -228,9 +229,6 @@ autocmd BufNewFile,BufRead *.go noremap <C-g> <Esc>:GoReferrers<CR>
 autocmd BufNewFile,BufRead *.hpp nmap ,l :e %:r.cpp<CR>
 autocmd BufNewFile,BufRead *.cpp nmap ,l :e %:r.hpp<CR>
 
-" auto indent
-nnoremap p p=`]
-
 " autocmd BufNewFile,BufRead *.go nnoremap <C-f> <Esc>:vimgrep // **/*.go **/*.js **/*.html<C-b><Right><Right><Right><Right><Right><Right><Right><Right><Right>
 " autocmd BufNewFile,BufRead *.go vnoremap <C-f> <Esc>:let @s=@<CR>gv"ay:let @"=@s<CR>:vimgrep /<C-r>a/ **/*.go **/*.js **/*.html<CR>:clist<CR>
 
@@ -336,9 +334,6 @@ hi MatchParen      ctermfg=208 ctermbg=233 cterm=bold
 
 let g:ctrlp_by_filename = 1
 let g:ctrlp_cache_dir = $HOME . '/.cache/ctrlp'
-if executable('ag')
-  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-endif
 
 let g:airline#extensions#tabline#enabled = 1
 
@@ -413,4 +408,9 @@ if isdirectory($HOME . '/projects/rr-tournament')
 				\ 'file': '\v\.(js|json|dll|class|scala|html)$',
 				\ 'link': 'SOME_BAD_SYMBOLIC_LINKS',
 				\ }
+
+ 	if executable('ag')
+ 		let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+ 	endif
+
 endif
