@@ -335,6 +335,10 @@ colorscheme molokai
 hi MatchParen      ctermfg=208 ctermbg=233 cterm=bold 
 
 let g:ctrlp_by_filename = 1
+let g:ctrlp_cache_dir = $HOME . '/.cache/ctrlp'
+if executable('ag')
+  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+endif
 
 let g:airline#extensions#tabline#enabled = 1
 
@@ -358,7 +362,8 @@ set statusline+=%#warningmsg#
 set statusline+=%*
 set showtabline=2
 set wildmenu " display all matching files when we tab complete
-set autoindent
+" set autoindent
+set cindent
 
 " let g:syntastic_always_populate_loc_list = 1
 " let g:syntastic_auto_loc_list = 1
