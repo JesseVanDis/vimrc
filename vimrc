@@ -78,13 +78,41 @@ let $PATH .= ':' . $GOPATH
 let $PATH .= ':' . $HOME . '/go/bin'
 
 " install vim-plug
-if empty(glob('~/.vim/autoload/plug.vim'))
-  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+" if empty(glob('~/.vim/autoload/plug.vim'))
+"   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+"     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+"   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+" endif
+" 
+" call plug#begin('~/.vim/plugged')
+" 
+" Plugin 'scrooloose/nerdtree'
+" Plugin 'bling/vim-airline'
+" Plugin 'scrooloose/syntastic'
+" Plugin 'kien/ctrlp.vim'
+" " Plugin 'nsf/gocode'
+" Plugin 'fatih/vim-go'
+" " Plugin 'pangloss/vim-javascript'
+" Plugin 'easymotion/vim-easymotion'
+" Plugin 'joonty/vdebug', { 'branch': 'v2-integration' }
+" Plugin 'w0rp/ale'
+" Plugin 'fatih/molokai'
+" Plugin 'skywind3000/asyncrun.vim'
+" Plugin 'valloric/youcompleteme'
+" 
+" call plug#end()
+
+" Install vundle plugin
+if !isdirectory($HOME . '/.vim/bundle/vundle')
+    silent !git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
 endif
 
-call plug#begin('~/.vim/plugged')
+set nocompatible
+filetype off
+filetype plugin indent off
+set runtimepath+=$GOROOT/misc/vim
+set rtp+=~/.vim/bundle/vundle/
+call vundle#begin()
 
 Plugin 'scrooloose/nerdtree'
 " Plugin 'bling/vim-airline'
@@ -94,44 +122,16 @@ Plugin 'kien/ctrlp.vim'
 Plugin 'fatih/vim-go'
 " Plugin 'pangloss/vim-javascript'
 Plugin 'easymotion/vim-easymotion'
-Plugin 'joonty/vdebug', { 'branch': 'v2-integration' }
+" Plugin 'joonty/vdebug', {'rtp': 'vim/'}
 Plugin 'w0rp/ale'
 Plugin 'fatih/molokai'
 Plugin 'skywind3000/asyncrun.vim'
 Plugin 'valloric/youcompleteme'
 
-call plug#end()
-
-" Install vundle plugin
-" if !isdirectory($HOME . '/.vim/bundle/vundle')
-"     silent !git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
-" endif
-" 
-" set nocompatible
-" filetype off
-" filetype plugin indent off
-" set runtimepath+=$GOROOT/misc/vim
-" set rtp+=~/.vim/bundle/vundle/
-" call vundle#begin()
-" 
-" Plugin 'scrooloose/nerdtree'
-" " Plugin 'bling/vim-airline'
-" " Plugin 'scrooloose/syntastic'
-" Plugin 'kien/ctrlp.vim'
-" " Plugin 'nsf/gocode'
-" Plugin 'fatih/vim-go'
-" " Plugin 'pangloss/vim-javascript'
-" Plugin 'easymotion/vim-easymotion'
-" Plugin 'joonty/vdebug', {'rtp': 'vim/'}
-" Plugin 'w0rp/ale'
-" Plugin 'fatih/molokai'
-" Plugin 'skywind3000/asyncrun.vim'
-" Plugin 'valloric/youcompleteme'
-" 
-" " All of your Plugins must be added before the following line
-" call vundle#end()
-" filetype plugin indent on
-" set nocompatible
+" All of your Plugins must be added before the following line
+call vundle#end()
+filetype plugin indent on
+set nocompatible
 
 " Build youcompleteme
 if !isdirectory($HOME . '/.vim/bundle/youcompleteme_didbuild')
@@ -329,6 +329,7 @@ autocmd FileType java setlocal omnifunc=javacomplete#Complete
 autocmd InsertEnter,InsertLeave * set cul!   " Indicate insert mode by changing selected line layout
 
 colorscheme molokai
+hi MatchParen      ctermfg=208 ctermbg=233 cterm=bold 
 
 let g:ctrlp_by_filename = 1
 
