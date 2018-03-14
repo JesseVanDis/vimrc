@@ -410,7 +410,7 @@ if isdirectory($HOME . '/projects/rr-tournament')
 				\ }
 
  	if executable('ag')
- 		let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+ 		let g:ctrlp_user_command = 'mv ../.agignore ./.agignore && ag %s -l --nocolor -g "" && mv ./.agignore ../.agignore'
  	endif
 
 endif
