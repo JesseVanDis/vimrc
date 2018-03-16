@@ -362,6 +362,9 @@ set wildmenu " display all matching files when we tab complete
 " set autoindent
 set cindent
 
+" ignore anoying bitchass 'swp file exists' message
+set shortmess+=A
+
 " let g:syntastic_always_populate_loc_list = 1
 " let g:syntastic_auto_loc_list = 1
 " let g:syntastic_check_on_open = 1
