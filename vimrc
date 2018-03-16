@@ -375,6 +375,15 @@ set shortmess+=A
 " let g:syntastic_java_javac_config_file_enabled = 1
 " let g:syntastic_python_checkers=['python3', 'flake8']
 
+let g:ale_linters = {
+ \   'python': ['flake8', 'mypy'],
+ \   'go': ['gofmt', 'golint', 'go vet'],
+ \   'c': 'all'
+ \ }
+let g:ale_python_flake8_options='--ignore=E225,E402,E501'
+let g:ale_python_mypy_options='--ignore-missing-imports'
+
+
 let g:deoplete#enable_at_startup = 1
 
 
