@@ -60,6 +60,7 @@ silent !dpkg -s cmake 2>/dev/null >/dev/null || sudo apt-get install cmake
 silent !dpkg -s python-dev 2>/dev/null >/dev/null || sudo apt-get install python-dev
 silent !dpkg -s python3-dev 2>/dev/null >/dev/null || sudo apt-get install python3-dev
 silent !dpkg -s cscope 2>/dev/null >/dev/null || sudo apt-get install cscope
+" TODO: Use universal Ctags
 silent !dpkg -s exuberant-ctags 2>/dev/null >/dev/null || sudo apt-get install exuberant-ctags
 silent !dpkg -s silversearcher-ag 2>/dev/null >/dev/null || sudo apt-get install silversearcher-ag
 
@@ -226,8 +227,9 @@ vnoremap <F3> y/<C-R>"<CR>
 nnoremap <C-H> :cp<CR>
 nnoremap <C-L> :cn<CR>
 autocmd BufNewFile,BufRead *.go noremap <C-g> <Esc>:GoReferrers<CR>
-autocmd BufNewFile,BufRead *.hpp nmap ,l :e %:r.cpp<CR>
-autocmd BufNewFile,BufRead *.cpp nmap ,l :e %:r.hpp<CR>
+autocmd BufNewFile,BufRead *.hpp nnoremap ,l :e %:r.cpp<CR>
+autocmd BufNewFile,BufRead *.cpp nnoremap ,l :e %:r.hpp<CR>
+autocmd BufNewFile,BufRead *.hpp nnoremap ,c "xyy/(<CR>Nh*<C-o>:e %:r.cpp<CR>nB"cyiw/{<CR>%o<Esc>"xpv=w"cPa::<Esc>Bhvbelc <Esc>$xo{<CR><CR>}<Esc>kaa<Esc>v=x:noh<CR>
 
 " autocmd BufNewFile,BufRead *.go nnoremap <C-f> <Esc>:vimgrep // **/*.go **/*.js **/*.html<C-b><Right><Right><Right><Right><Right><Right><Right><Right><Right>
 " autocmd BufNewFile,BufRead *.go vnoremap <C-f> <Esc>:let @s=@<CR>gv"ay:let @"=@s<CR>:vimgrep /<C-r>a/ **/*.go **/*.js **/*.html<CR>:clist<CR>
@@ -392,7 +394,7 @@ hi EasyMotionTarget2Second ctermbg=none ctermfg=brown
 " rr tournament specific
 if isdirectory($HOME . '/projects/rr-tournament')
 	nmap ,r :!../../commands.sh hg<CR><CR>
-	nnoremap ,t <C-]>:let @f=expand("%:p")<CR><C-^>ggO<Esc>:let @g=expand("%:p:h")<CR>:read !python -c "import os.path; print os.path.relpath('<C-r>f', '<C-r>g')"<CR><CR>i#include "<Esc>$a"<ESC>0ellv$h"yyggdd<C-o><C-o>:echo "Added: " @y<CR>
+	nnoremap ,t <C-]>:let @f=expand("%:p")<CR><C-^>ggO<Esc>:let @g=expand("%:p:h")<CR>:read !python -c "import os.path; print os.path.relpath('<C-r>f', '<C-r>g')"<CR><CR>i#include "<Esc>$xxxahpp"<ESC>0ellv$h"yyggdd<C-o><C-o>:echo "Added: " @y<CR>
 	nnoremap ,T <C-]>:let @f=expand("%:p")<CR><C-^>ggO<Esc>O<Esc>"fp0i#include "<Esc>$a"<ESC>0ellv$h"yy<C-o>:echo "Added: " @y<CR>
 
 	vnoremap <C-f> <Esc>:let @s=@<CR>gv"ay:let @"=@s<CR>:grep -R -r -i --include=\*.{cpp,hpp,bdef,ds} --exclude-dir=*/library/local <C-r>a . <CR>:cw<CR>
