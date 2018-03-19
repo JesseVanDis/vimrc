@@ -79,31 +79,6 @@ endif
 let $PATH .= ':' . $GOPATH
 let $PATH .= ':' . $HOME . '/go/bin'
 
-" install vim-plug
-" if empty(glob('~/.vim/autoload/plug.vim'))
-"   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-"     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-"   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-" endif
-" 
-" call plug#begin('~/.vim/plugged')
-" 
-" Plugin 'scrooloose/nerdtree'
-" Plugin 'bling/vim-airline'
-" Plugin 'scrooloose/syntastic'
-" Plugin 'kien/ctrlp.vim'
-" " Plugin 'nsf/gocode'
-" Plugin 'fatih/vim-go'
-" " Plugin 'pangloss/vim-javascript'
-" Plugin 'easymotion/vim-easymotion'
-" Plugin 'joonty/vdebug', { 'branch': 'v2-integration' }
-" Plugin 'w0rp/ale'
-" Plugin 'fatih/molokai'
-" Plugin 'skywind3000/asyncrun.vim'
-" Plugin 'valloric/youcompleteme'
-" 
-" call plug#end()
-
 " Install vundle plugin
 if !isdirectory($HOME . '/.vim/bundle/vundle')
     silent !git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
@@ -117,28 +92,40 @@ set rtp+=~/.vim/bundle/vundle/
 call vundle#begin()
 
 Plugin 'scrooloose/nerdtree'
-" Plugin 'bling/vim-airline'
-" Plugin 'scrooloose/syntastic'
 Plugin 'kien/ctrlp.vim'
-" Plugin 'nsf/gocode'
 Plugin 'fatih/vim-go'
-" Plugin 'pangloss/vim-javascript'
 Plugin 'easymotion/vim-easymotion'
-" Plugin 'joonty/vdebug', {'rtp': 'vim/'}
-Plugin 'w0rp/ale'
+" Plugin 'w0rp/ale'
 Plugin 'fatih/molokai'
 Plugin 'skywind3000/asyncrun.vim'
-Plugin 'valloric/youcompleteme'
-
+Plugin 'oblitum/YouCompleteMe'
+"
+" Plugin 'wesleyche/SrcExpl'
+" Plugin 'valloric/youcompleteme'
+" Plugin 'joonty/vdebug', {'rtp': 'vim/'}
+" Plugin 'pangloss/vim-javascript'
+" Plugin 'nsf/gocode'
+" Plugin 'scrooloose/syntastic'
+" Plugin 'bling/vim-airline'
 " All of your Plugins must be added before the following line
 call vundle#end()
 filetype plugin indent on
 set nocompatible
 
 " Build youcompleteme
-if !isdirectory($HOME . '/.vim/bundle/youcompleteme_didbuild')
-    silent !cd ~/.vim/bundle/youcompleteme && ./install.py --clang-completer
-    silent !mkdir -p ~/.vim/bundle/youcompleteme_didbuild
+if isdirectory($HOME . '/.vim/bundle/youcompleteme')
+	if !isdirectory($HOME . '/.vim/bundle/youcompleteme_didbuild')
+		silent !cd ~/.vim/bundle/youcompleteme && ./install.py --clang-completer
+		silent !mkdir -p ~/.vim/bundle/youcompleteme_didbuild
+	endif
+endif
+
+" Build youcompleteme ( oblitum fork )
+if isdirectory($HOME . '/.vim/bundle/YouCompleteMe')
+	if !isdirectory($HOME . '/.vim/bundle/YouCompleteMe_didbuild')
+		silent !cd ~/.vim/bundle/YouCompleteMe && ./install.py --clang-completer
+		silent !mkdir -p ~/.vim/bundle/YouCompleteMe_didbuild
+	endif
 endif
 
 " Instal vim proc for golang debugging
@@ -398,7 +385,8 @@ let g:vdebug_options["debug_file_level"] = 2
 let g:javascript_plugin_jsdoc = 1
 
 let g:ycm_confirm_extra_conf = 0
-let g:ycm_show_diagnostics_ui = 0
+" let g:ycm_show_diagnostics_ui = 0
+let g:ycm_show_diagnostics_ui = 1
 
 let g:ycm_add_preview_to_completeopt = 1
 let g:ycm_autoclose_preview_window_after_completion = 1
