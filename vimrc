@@ -225,7 +225,7 @@ autocmd BufNewFile,BufRead *.hpp nnoremap ,c "xyy/(<CR>Nh*<C-o>:e %:r.cpp<CR>nB"
 " autocmd BufNewFile,BufRead *.hpp nnoremap <C-f> <Esc>:vimgrep // **/*.cpp **/*.hpp **/*.html<C-b><Right><Right><Right><Right><Right><Right><Right><Right><Right>
 " autocmd BufNewFile,BufRead *.cpp vnoremap <C-f> <Esc>:let @s=@<CR>gv"ay:let @"=@s<CR>:vimgrep /<C-r>a/ **/*.cpp **/*.hpp **/*.html<CR>:clist<CR>
 " autocmd BufNewFile,BufRead *.hpp vnoremap <C-f> <Esc>:let @s=@<CR>gv"ay:let @"=@s<CR>:vimgrep /<C-r>a/ **/*.cpp **/*.hpp **/*.html<CR>:clist<CR>
-vnoremap ,f <Esc>:let @s=@<CR>gv"ay:let @"=@s<CR>:grep -R -r -i --include=\*.{cpp,hpp,h,go,html,bdef,ds,js,c} <C-r>a . <CR>:cw<CR>
+vnoremap ,f <Esc>:let @s=@<CR>gv"ay:let @"=@s<CR>:grep -R -r -i --include=\*.{cpp,hpp,h,go,html,bdef,ds,js,c} <C-r>a . <CR>:cw<CR><CR>
 " nnoremap ,f :grep -R -r -i --include=\*.{cpp,hpp,h,go,html,bdef,ds,js,c}  . \| cw<Left><Left><Left><Left><Left><Left><Left>
 nnoremap ,f :grep -R -r -i --include=\*.{cpp,hpp,h,go,html,bdef,ds,js,c}  . <Left><Left><Left>
 
@@ -352,6 +352,10 @@ set cindent
 " ignore anoying bitchass 'swp file exists' message
 set shortmess+=A
 
+" scroll margin from cursor
+set so=7 
+
+
 " let g:syntastic_always_populate_loc_list = 1
 " let g:syntastic_auto_loc_list = 1
 " let g:syntastic_check_on_open = 1
@@ -389,11 +393,48 @@ let g:ycm_confirm_extra_conf = 0
 let g:ycm_show_diagnostics_ui = 1
 
 let g:ycm_add_preview_to_completeopt = 1
-let g:ycm_autoclose_preview_window_after_completion = 1
-let g:ycm_autoclose_preview_window_after_insertion = 1
+" let g:ycm_autoclose_preview_window_after_completion = 1
+" let g:ycm_autoclose_preview_window_after_insertion = 1
 
 hi EasyMotionTarget2First ctermbg=none ctermfg=red
 hi EasyMotionTarget2Second ctermbg=none ctermfg=brown
+
+
+" .======================================.
+" ||            CUSTOM SHIT             ||
+" '======================================'
+
+let s:comment_map = { 
+    \   "c": '\/\/',
+    \   "cpp": '\/\/',
+    \   "go": '\/\/',
+    \   "java": '\/\/',
+    \   "javascript": '\/\/',
+    \   "sh": '#',
+    \ }
+
+function! ToggleComment()
+    if has_key(s:comment_map, &filetype)
+        let comment_leader = s:comment_map[&filetype]
+        if getline('.') =~ "^\\s*" . comment_leader . " " 
+            execute "silent s/^\\(\\s*\\)" . comment_leader . " /\\1/"
+        else 
+            if getline('.') =~ "^\\s*" . comment_leader
+                execute "silent s/^\\(\\s*\\)" . comment_leader . "/\\1/"
+            else
+                execute "silent s/^\\(\\s*\\)/\\1" . comment_leader . " /"
+            end
+        end
+    else
+        echo "No comment leader found for filetype"
+    end
+endfunction
+
+
+nnoremap ,/ :call ToggleComment()<cr>
+vnoremap ,/ :call ToggleComment()<cr>
+
+
 
 " rr tournament specific
 if isdirectory($HOME . '/projects/rr-tournament')
