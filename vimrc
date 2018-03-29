@@ -227,8 +227,8 @@ autocmd BufNewFile,BufRead *.hpp nnoremap ,c "xyy/(<CR>Nh*<C-o>:e %:r.cpp<CR>nB"
 " autocmd BufNewFile,BufRead *.cpp vnoremap <C-f> <Esc>:let @s=@<CR>gv"ay:let @"=@s<CR>:vimgrep /<C-r>a/ **/*.cpp **/*.hpp **/*.html<CR>:clist<CR>
 " autocmd BufNewFile,BufRead *.hpp vnoremap <C-f> <Esc>:let @s=@<CR>gv"ay:let @"=@s<CR>:vimgrep /<C-r>a/ **/*.cpp **/*.hpp **/*.html<CR>:clist<CR>
 
-
 function! SearchText(text)
+	" execute "normal (:grep -R -r -i --include=\*.{cpp,hpp,h,go,html,bdef,ds,js,c} include .)^L"
 	execute "grep -R -r -i --include=\*.{cpp,hpp,h,go,html,bdef,ds,js,c} " . a:text . " ."
 	copen
 
@@ -360,7 +360,7 @@ set shortmess+=A
 set so=7 
 
 " avoid auto window creation if buffer wasnt saved
-set hidden
+" set hidden
 
 " let g:syntastic_always_populate_loc_list = 1
 " let g:syntastic_auto_loc_list = 1
