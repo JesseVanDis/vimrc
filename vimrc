@@ -226,17 +226,20 @@ autocmd BufNewFile,BufRead *.hpp nnoremap ,c "xyy/(<CR>Nh*<C-o>:e %:r.cpp<CR>nB"
 " autocmd BufNewFile,BufRead *.hpp nnoremap <C-f> <Esc>:vimgrep // **/*.cpp **/*.hpp **/*.html<C-b><Right><Right><Right><Right><Right><Right><Right><Right><Right>
 " autocmd BufNewFile,BufRead *.cpp vnoremap <C-f> <Esc>:let @s=@<CR>gv"ay:let @"=@s<CR>:vimgrep /<C-r>a/ **/*.cpp **/*.hpp **/*.html<CR>:clist<CR>
 " autocmd BufNewFile,BufRead *.hpp vnoremap <C-f> <Esc>:let @s=@<CR>gv"ay:let @"=@s<CR>:vimgrep /<C-r>a/ **/*.cpp **/*.hpp **/*.html<CR>:clist<CR>
-vnoremap ,f <Esc>:let @s=@<CR>gv"ay:let @"=@s<CR>:grep -R -r -i --include=\*.{cpp,hpp,h,go,html,bdef,ds,js,c} <C-r>a . <CR>:cw<CR><CR>
-" nnoremap ,f :grep -R -r -i --include=\*.{cpp,hpp,h,go,html,bdef,ds,js,c}  . \| cw<Left><Left><Left><Left><Left><Left><Left>
-nnoremap ,f :grep -R -r -i --include=\*.{cpp,hpp,h,go,html,bdef,ds,js,c}  . <Left><Left><Left>
 
-" vnoremap <C-f> :grep -R <cword> . <CR>:cw<CR>
+
+function! SearchText(text)
+	execute "grep -R -r -i --include=\*.{cpp,hpp,h,go,html,bdef,ds,js,c} " . a:text . " ."
+	copen
+
+endfunction
+
+
+vnoremap ,f <Esc>:let @s=@<CR>gv"ay:let @"=@s<CR>:grep -R -r -i --include=\*.{cpp,hpp,h,go,html,bdef,ds,js,c} <C-r>a . <CR>:cw<CR><CR><C-o>
+nnoremap ,f "ayiw:call SearchText("<C-r>a")<Left><Left>
 
 " Start search with word under cursor (and perserve default registry)
 nmap ,n :let @s=@<CR>viw"ay/<C-r>a<CR>:let @"=@s<CR>
-
-" Save
-" map <C-w> <Esc>:w<CR>
 
 " avoid yanking the text you delete... its anoying
 nnoremap c "_c
@@ -356,6 +359,8 @@ set shortmess+=A
 " scroll margin from cursor
 set so=7 
 
+" avoid auto window creation if buffer wasnt saved
+set hidden
 
 " let g:syntastic_always_populate_loc_list = 1
 " let g:syntastic_auto_loc_list = 1
@@ -412,6 +417,7 @@ let s:comment_map = {
     \   "java": '\/\/',
     \   "javascript": '\/\/',
     \   "sh": '#',
+    \   "vimrc": '" ',
     \ }
 
 function! ToggleComment()
