@@ -50,6 +50,7 @@ function DownloadVimRc()
 	silent let $copyCmd = "cp " . $vimrcsync_gitfolder . "/vimrc " . $HOME . "/.vimrc "
 	silent ! $copyCmd
 	:redraw!
+	:source ~/.vimrc
 endfunction
 
 command! UploadVimRc call UploadVimRc()
