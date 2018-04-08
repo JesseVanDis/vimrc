@@ -220,14 +220,6 @@ autocmd BufNewFile,BufRead *.hpp nnoremap ,l :e %:r.cpp<CR>
 autocmd BufNewFile,BufRead *.cpp nnoremap ,l :e %:r.hpp<CR>
 autocmd BufNewFile,BufRead *.hpp nnoremap ,c "xyy/(<CR>Nh*<C-o>:e %:r.cpp<CR>nB"cyiw/{<CR>%o<Esc>"xpv=w"cPa::<Esc>Bhvbelc <Esc>$xo{<CR><CR>}<Esc>kaa<Esc>v=x:noh<CR>
 
-" autocmd BufNewFile,BufRead *.go nnoremap <C-f> <Esc>:vimgrep // **/*.go **/*.js **/*.html<C-b><Right><Right><Right><Right><Right><Right><Right><Right><Right>
-" autocmd BufNewFile,BufRead *.go vnoremap <C-f> <Esc>:let @s=@<CR>gv"ay:let @"=@s<CR>:vimgrep /<C-r>a/ **/*.go **/*.js **/*.html<CR>:clist<CR>
-
-" autocmd BufNewFile,BufRead *.cpp nnoremap <C-f> <Esc>:vimgrep // **/*.cpp **/*.hpp **/*.html<C-b><Right><Right><Right><Right><Right><Right><Right><Right><Right>
-" autocmd BufNewFile,BufRead *.hpp nnoremap <C-f> <Esc>:vimgrep // **/*.cpp **/*.hpp **/*.html<C-b><Right><Right><Right><Right><Right><Right><Right><Right><Right>
-" autocmd BufNewFile,BufRead *.cpp vnoremap <C-f> <Esc>:let @s=@<CR>gv"ay:let @"=@s<CR>:vimgrep /<C-r>a/ **/*.cpp **/*.hpp **/*.html<CR>:clist<CR>
-" autocmd BufNewFile,BufRead *.hpp vnoremap <C-f> <Esc>:let @s=@<CR>gv"ay:let @"=@s<CR>:vimgrep /<C-r>a/ **/*.cpp **/*.hpp **/*.html<CR>:clist<CR>
-
 function! SearchText(text)
 	let $searchCommand = "grep -R -r -i --include=\*.{cpp,hpp,h,go,html,bdef,ds,js,c} " . a:text . " . > ./.searchresults.txt~"
 	silent exec $searchCommand
@@ -237,19 +229,10 @@ function! SearchText(text)
 	redraw!
 endfunction
 
-function! SearchTextB(text)
-	execute "grep -R -r -i --include=\*.{cpp,hpp,h,go,html,bdef,ds,js,c} " . a:text . " ."
-	copen
-	:redraw!
-endfunction
-
-vnoremap ,f <Esc>:let @s=@<CR>gv"ay:let @"=@s<CR>:grep -R -r -i --include=\*.{cpp,hpp,h,go,html,bdef,ds,js,c} <C-r>a . <CR>:cw<CR><CR><C-o>
+vnoremap ,f <Esc>:let @s=@<CR>gv"ay:let @"=@s<CR>:call SearchText("<C-r>a")<CR>
 nnoremap ,f "ayiw:call SearchText("<C-r>a")<Left><Left>
 
-" Start search with word under cursor (and perserve default registry)
-nmap ,n :let @s=@<CR>viw"ay/<C-r>a<CR>:let @"=@s<CR>
-
-" avoid yanking the text you delete... its anoying
+" avoid yanking the text you delete... 
 nnoremap c "_c
 vnoremap c "_c
 nnoremap C "_C
