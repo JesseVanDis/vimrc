@@ -96,10 +96,11 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'kien/ctrlp.vim'
 Plugin 'fatih/vim-go'
 Plugin 'easymotion/vim-easymotion'
-" Plugin 'w0rp/ale'
 Plugin 'fatih/molokai'
 Plugin 'skywind3000/asyncrun.vim'
 Plugin 'oblitum/YouCompleteMe'
+Plugin 'w0rp/ale'
+"
 "
 " Plugin 'wesleyche/SrcExpl'
 " Plugin 'valloric/youcompleteme'
@@ -228,12 +229,19 @@ autocmd BufNewFile,BufRead *.hpp nnoremap ,c "xyy/(<CR>Nh*<C-o>:e %:r.cpp<CR>nB"
 " autocmd BufNewFile,BufRead *.hpp vnoremap <C-f> <Esc>:let @s=@<CR>gv"ay:let @"=@s<CR>:vimgrep /<C-r>a/ **/*.cpp **/*.hpp **/*.html<CR>:clist<CR>
 
 function! SearchText(text)
-	" execute "normal (:grep -R -r -i --include=\*.{cpp,hpp,h,go,html,bdef,ds,js,c} include .)^L"
-	execute "grep -R -r -i --include=\*.{cpp,hpp,h,go,html,bdef,ds,js,c} " . a:text . " ."
+	let $searchCommand = "grep -R -r -i --include=\*.{cpp,hpp,h,go,html,bdef,ds,js,c} " . a:text . " . > ./.searchresults.txt~"
+	silent exec $searchCommand
+	cexpr system("cat ./.searchresults.txt~")	
+	call delete("./.searchresults.txt~")
 	copen
-
+	redraw!
 endfunction
 
+function! SearchTextB(text)
+	execute "grep -R -r -i --include=\*.{cpp,hpp,h,go,html,bdef,ds,js,c} " . a:text . " ."
+	copen
+	:redraw!
+endfunction
 
 vnoremap ,f <Esc>:let @s=@<CR>gv"ay:let @"=@s<CR>:grep -R -r -i --include=\*.{cpp,hpp,h,go,html,bdef,ds,js,c} <C-r>a . <CR>:cw<CR><CR><C-o>
 nnoremap ,f "ayiw:call SearchText("<C-r>a")<Left><Left>
@@ -358,6 +366,9 @@ set shortmess+=A
 
 " scroll margin from cursor
 set so=7 
+
+" disable spellcheck
+set nospell
 
 " avoid auto window creation if buffer wasnt saved
 " set hidden
