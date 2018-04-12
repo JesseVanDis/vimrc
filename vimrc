@@ -215,7 +215,6 @@ map ,j :bn<CR>
 vnoremap <F3> y/<C-R>"<CR>
 nnoremap <C-H> :cp<CR>
 nnoremap <C-L> :cn<CR>
-autocmd BufNewFile,BufRead *.go noremap <C-g> <Esc>:GoReferrers<CR>
 autocmd BufNewFile,BufRead *.hpp nnoremap ,l :e %:r.cpp<CR>
 autocmd BufNewFile,BufRead *.cpp nnoremap ,l :e %:r.hpp<CR>
 autocmd BufNewFile,BufRead *.hpp nnoremap ,c "xyy/(<CR>Nh*<C-o>:e %:r.cpp<CR>nB"cyiw/{<CR>%o<Esc>"xpv=w"cPa::<Esc>Bhvbelc <Esc>$xo{<CR><CR>}<Esc>kaa<Esc>v=x:noh<CR>
@@ -231,6 +230,11 @@ endfunction
 
 vnoremap ,f <Esc>:let @s=@<CR>gv"ay:let @"=@s<CR>:call SearchText("<C-r>a")<CR>
 nnoremap ,f "ayiw:call SearchText("<C-r>a")<Left><Left>
+
+autocmd BufNewFile,BufRead *.go noremap <C-g> <Esc>:GoReferrers<CR>
+
+" insert for loop
+autocmd BufNewFile,BufRead *.go noremap ,i <Esc>afor i, v := range <C-r>0 {<CR>}<Esc><S-v>k=o
 
 " avoid yanking the text you delete... 
 nnoremap c "_c
@@ -254,9 +258,6 @@ nmap <silent> <S-Up> :wincmd k<CR>
 nmap <silent> <S-Down> :wincmd j<CR>
 nmap <silent> <S-Left> :wincmd h<CR>
 nmap <silent> <S-Right> :wincmd l<CR>
-
-" Escape insert mode
-imap ii <Esc>
 
 " Ctags
 nmap ,r :!ctags -R .
@@ -334,6 +335,7 @@ let g:go_highlight_structs = 1
 let g:go_highlight_generate_tags = 1
 let g:go_auto_sameids = 0 " if 1 then it will highlight stuff that is currently under cursor.
 let g:go_def_mapping_enabled = 1
+let g:go_auto_type_info = 1 " automatically show info of the type
 "let g:go_highlight_fields = 1
 
 set statusline+=%#warningmsg#
