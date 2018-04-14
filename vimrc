@@ -234,7 +234,10 @@ nnoremap ,f "ayiw:call SearchText("<C-r>a")<Left><Left>
 autocmd BufNewFile,BufRead *.go noremap <C-g> <Esc>:GoReferrers<CR>
 
 " insert for loop
-autocmd BufNewFile,BufRead *.go noremap ,i <Esc>afor i, v := range <C-r>0 {<CR>}<Esc><S-v>k=o
+autocmd BufNewFile,BufRead *.go noremap ,i <Esc>afor i, v := range xxx {<CR>}<Esc><S-v>k=$bciw
+
+" print variable
+autocmd BufNewFile,BufRead *.go noremap ,p <Esc>afmt.Printf("%+v\n",  )<Esc>v=$hi
 
 " avoid yanking the text you delete... 
 nnoremap c "_c
