@@ -186,6 +186,10 @@ packadd matchit
 " autocmd vimenter * NERDTree
 autocmd vimenter * wincmd l
 
+" extention mapping
+au BufNewFile,BufRead *.locatext set filetype=xml
+
+
 " .======================================.
 " ||            MAPPINGS                ||
 " '======================================'
