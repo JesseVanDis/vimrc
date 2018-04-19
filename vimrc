@@ -228,6 +228,7 @@ function! SearchText(text, filterExt)
 	silent exec $searchCommand
 	cexpr system("cat ~/.searchresults.txt~")	
 	call delete("~/.searchresults.txt~")
+	execute "normal 1 \<c-o>"
 	copen
 	redraw!
 endfunction
@@ -250,6 +251,9 @@ nnoremap C "_C
 vnoremap C "_C
 nnoremap x "_x
 xnoremap p pgvy
+
+" paste indenting
+:nnoremap p p=']
 
 " Build / Run
 " Workaround https://github.com/fatih/vim-go/issues/1477
