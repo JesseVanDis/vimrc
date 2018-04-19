@@ -216,7 +216,8 @@ map <C-Up> 10k
 map <C-Down> 10j
 map ,k :bp<CR>
 map ,j :bn<CR>
-vnoremap <F3> y/<C-R>"<CR>
+vnoremap <F3> "qy/<C-R>q<CR>
+vnoremap * "qy/<C-R>q<CR>
 nnoremap <C-H> :cp<CR>
 nnoremap <C-L> :cn<CR>
 autocmd BufNewFile,BufRead *.hpp nnoremap ,l :e %:r.cpp<CR>
