@@ -231,13 +231,14 @@ function! SearchText(text, filterExt)
 	call delete("~/.searchresults.txt~")
 	execute "normal 1 \<c-o>"
 	copen
+	execute "normal /" . a:text . "\<CR>"
 	redraw!
 endfunction
 
 vnoremap ,f <Esc>:let @s=@<CR>gv"ay:let @"=@s<CR>:call SearchText("<C-r>a", "cpp,hpp,h,go,html,bdef,ds,js,c")<CR>
 nnoremap ,f "ayiw:call SearchText("<C-r>a", "cpp,hpp")<Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><left>
 
-autocmd BufNewFile,BufRead *.go nnoremap ,f "ayiw:call SearchText("<C-r>a", "go,js,html")<Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><left><Left><left>
+autocmd BufNewFile,BufRead *.go nnoremap ,f "ayiw:call SearchText("<C-r>a", "go,js,html")<Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><left><Left><left><left>
 
 autocmd BufNewFile,BufRead *.go noremap <C-g> <Esc>:GoReferrers<CR>
 
