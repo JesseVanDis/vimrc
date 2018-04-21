@@ -237,6 +237,8 @@ endfunction
 vnoremap ,f <Esc>:let @s=@<CR>gv"ay:let @"=@s<CR>:call SearchText("<C-r>a", "cpp,hpp,h,go,html,bdef,ds,js,c")<CR>
 nnoremap ,f "ayiw:call SearchText("<C-r>a", "cpp,hpp")<Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><left>
 
+autocmd BufNewFile,BufRead *.go nnoremap ,f "ayiw:call SearchText("<C-r>a", "go,js,html")<Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><left><Left><left>
+
 autocmd BufNewFile,BufRead *.go noremap <C-g> <Esc>:GoReferrers<CR>
 
 " insert for loop
@@ -252,9 +254,6 @@ nnoremap C "_C
 vnoremap C "_C
 nnoremap x "_x
 xnoremap p pgvy
-
-" paste indenting
-:nnoremap p p=']
 
 " Build / Run
 " Workaround https://github.com/fatih/vim-go/issues/1477
