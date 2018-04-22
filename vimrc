@@ -225,20 +225,24 @@ autocmd BufNewFile,BufRead *.cpp nnoremap ,l :e %:r.hpp<CR>
 autocmd BufNewFile,BufRead *.hpp nnoremap ,c "xyy/(<CR>Nh*<C-o>:e %:r.cpp<CR>nB"cyiw/{<CR>%o<Esc>"xpv=w"cPa::<Esc>Bhvbelc <Esc>$xo{<CR><CR>}<Esc>kaa<Esc>v=x:noh<CR>
 
 function! SearchText(text, filterExt)
-	let $searchCommand = "grep -R -r -i --include=\*.{" . a:filterExt . ",boooooool} " . a:text . " . > ~/.searchresults.txt~"
+	let $searchCommand = "grep -R -r -i --include=\*.{" . a:filterExt . ",boooooool} " . a:text . " . > ~/.searchresults.txt_1~"
 	silent exec $searchCommand
+	silent ! echo "" > ~/.searchresults.txt~
+	silent ! expand -t 4 ~/.searchresults.txt_1~ > ~/.searchresults.txt~
 	cexpr system("cat ~/.searchresults.txt~")	
-	call delete("~/.searchresults.txt~")
 	execute "normal 1 \<c-o>"
 	copen
 	execute "normal /" . a:text . "\<CR>"
 	redraw!
+	call delete($HOME . "/.searchresults.txt_1~")
+	call delete($HOME . "/.searchresults.txt~")
 endfunction
 
 vnoremap ,f <Esc>:let @s=@<CR>gv"ay:let @"=@s<CR>:call SearchText("<C-r>a", "cpp,hpp,h,go,html,bdef,ds,js,c")<CR>
 nnoremap ,f "ayiw:call SearchText("<C-r>a", "cpp,hpp")<Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><left>
 
 autocmd BufNewFile,BufRead *.go nnoremap ,f "ayiw:call SearchText("<C-r>a", "go,js,html")<Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><left><Left><left><left>
+autocmd BufNewFile,BufRead *.go vnoremap ,f "aylh:call SearchText("<C-r>a", "go,js,html")<Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><left><Left><left><left>
 
 autocmd BufNewFile,BufRead *.go noremap <C-g> <Esc>:GoReferrers<CR>
 
