@@ -244,6 +244,12 @@ nnoremap ,f "ayiw:call SearchText("<C-r>a", "cpp,hpp")<Left><Left><Left><Left><L
 autocmd BufNewFile,BufRead *.go nnoremap ,f "ayiw:call SearchText("<C-r>a", "go,js,html")<Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><left><Left><left><left>
 autocmd BufNewFile,BufRead *.go vnoremap ,f "aylh:call SearchText("<C-r>a", "go,js,html")<Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><left><Left><left><left>
 
+autocmd BufNewFile,BufRead *.html nnoremap ,f "ayiw:call SearchText("<C-r>a", "go,js,html,css")<Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><left><Left><left><left><left><Left><left><left>
+autocmd BufNewFile,BufRead *.html vnoremap ,f "aylh:call SearchText("<C-r>a", "go,js,html,css")<Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><left><Left><left><left><left><Left><left><left>
+
+autocmd BufNewFile,BufRead *.js nnoremap ,f "ayiw:call SearchText("<C-r>a", "go,js,html")<Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><left><Left><left><left>
+autocmd BufNewFile,BufRead *.js vnoremap ,f "aylh:call SearchText("<C-r>a", "go,js,html")<Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><left><Left><left><left>
+
 autocmd BufNewFile,BufRead *.go noremap <C-g> <Esc>:GoReferrers<CR>
 
 " insert for loop
