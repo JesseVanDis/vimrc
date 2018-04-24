@@ -320,7 +320,7 @@ else
   set undofile		" keep an undo file (undo changes after closing)
 endif
 
-autocmd FileType html set spell
+" autocmd FileType html set spell
 autocmd FileType python set efm=%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\ ]%\\@=%m
 autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType python set omnifunc=pythoncomplete#Complete
