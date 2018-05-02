@@ -220,8 +220,12 @@ vnoremap <F3> "qy/<C-R>q<CR>
 vnoremap * "qy/<C-R>q<CR>
 nnoremap <C-H> :cp<CR>
 nnoremap <C-L> :cn<CR>
+
+" switch header/source
 autocmd BufNewFile,BufRead *.hpp nnoremap ,l :e %:r.cpp<CR>
 autocmd BufNewFile,BufRead *.cpp nnoremap ,l :e %:r.hpp<CR>
+
+" generate function in cpp
 autocmd BufNewFile,BufRead *.hpp nnoremap ,c "xyy/(<CR>Nh*<C-o>:e %:r.cpp<CR>nB"cyiw/{<CR>%o<Esc>"xpv=w"cPa::<Esc>Bhvbelc <Esc>$xo{<CR><CR>}<Esc>kaa<Esc>v=x:noh<CR>
 
 function! SearchText(text, filterExt)
