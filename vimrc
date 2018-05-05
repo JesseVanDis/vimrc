@@ -11,13 +11,19 @@ let $vimrcsync_folder = $HOME . '/.vim/vimrcsync'
 let $vimrcsync_usrfile = $vimrcsync_folder . '/usr.usr'
 let $vimrcsync_passfile = $vimrcsync_folder . '/pass.pass'
 let $vimrcsync_gitfolder = $vimrcsync_folder . '/git'
+
 function SetupVimRcSync()
 	if empty(glob($vimrcsync_usrfile)) || empty(glob($vimrcsync_passfile))
+		silent !mkdir -p $vimrcsync_folder
 		echo "vimrc sync credentials not found."
+		call inputsave()
 		let username = input('Enter github username: ')
+		call inputrestore()
+		call writefile([username], $vimrcsync_usrfile, "a") 
+		call inputsave()
 		let password = input('Enter github password: ')
-		silent !echo "$username" > $vimrcsync_usrfile 
-		silent !echo "$password" > $vimrcsync_passfile 
+		call inputrestore()
+		call writefile([password], $vimrcsync_passfile, "a") 
 		echo "credentials saved"
 	endif
 	if !empty(glob($vimrcsync_usrfile)) && !empty(glob($vimrcsync_passfile))
