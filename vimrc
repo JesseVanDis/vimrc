@@ -505,7 +505,7 @@ if isdirectory($HOME . '/projects/rr-tournament')
 				\*/client/build/emscripten
 
 	let g:ctrlp_custom_ignore = {
-				\ 'dir':  '\.git$\|\.hg$\|\.svn$\|library|' . 
+				\ 'dir':  '\.git$\|\.hg$\|\.svn$\|library|' .  \'configuration$',
 				\'modules/balancing|' . 
 				\'modules/boost-1.53.0|' . 
 				\'modules/boost-regexp|' . 
@@ -522,11 +522,12 @@ if isdirectory($HOME . '/projects/rr-tournament')
 				\'modules/systeminfo|' . 
 				\'modules/videorecording|' . 
 				\'modules/vungle|' . 
-				\'configuration$',
 				\ 'file': '\v\.(js|json|dll|class|scala|html)$',
 				\ 'link': 'SOME_BAD_SYMBOLIC_LINKS',
 				\ }
 
+	" Edit .agignore for ignore CTRL+p options
+	"
  	if executable('ag')
  		let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
  	endif
