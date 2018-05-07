@@ -484,7 +484,6 @@ if isdirectory($HOME . '/projects/rr-tournament')
 	nnoremap <F8> :copen<CR>:AsyncRun! ../../commands.sh s2<CR>
 
 	set path+=/home/jvandis/projects/rr-tournament/code/client/build/linux/debug/include
-	" set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.js,*.mk,*.scala,*.class,*.jar,*.json,*.*~,*/.git/*,*/server,*/scripts,*/tools,*/modules/boost-1.53.0,*/modules/boost_regexp,*/client/build/android,*/client/build/emscripten
 	set wildignore+=*/tmp/*,
 				\*.so,
 				\*.swp,
@@ -506,7 +505,24 @@ if isdirectory($HOME . '/projects/rr-tournament')
 				\*/client/build/emscripten
 
 	let g:ctrlp_custom_ignore = {
-				\ 'dir':  '\.git$\|\.hg$\|\.svn$\|library|configuration|modules$',
+				\ 'dir':  '\.git$\|\.hg$\|\.svn$\|library|' . 
+				\'modules/balancing|' . 
+				\'modules/boost-1.53.0|' . 
+				\'modules/boost-regexp|' . 
+				\'modules/compiler|' . 
+				\'modules/cpprestsdk|' . 
+				\'modules/gameframework|' . 
+				\'modules/httpclient|' . 
+				\'modules/icloud|' . 
+				\'modules/knightsrenderer|' . 
+				\'modules/musicplayer|' . 
+				\'modules/sharedbalancing|' . 
+				\'modules/sharedtypes|' . 
+				\'modules/soundconfig|' . 
+				\'modules/systeminfo|' . 
+				\'modules/videorecording|' . 
+				\'modules/vungle|' . 
+				\'configuration$',
 				\ 'file': '\v\.(js|json|dll|class|scala|html)$',
 				\ 'link': 'SOME_BAD_SYMBOLIC_LINKS',
 				\ }
