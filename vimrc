@@ -505,23 +505,7 @@ if isdirectory($HOME . '/projects/rr-tournament')
 				\*/client/build/emscripten
 
 	let g:ctrlp_custom_ignore = {
-				\ 'dir':  '\.git$\|\.hg$\|\.svn$\|library|' .  \'configuration$',
-				\'modules/balancing|' . 
-				\'modules/boost-1.53.0|' . 
-				\'modules/boost-regexp|' . 
-				\'modules/compiler|' . 
-				\'modules/cpprestsdk|' . 
-				\'modules/gameframework|' . 
-				\'modules/httpclient|' . 
-				\'modules/icloud|' . 
-				\'modules/knightsrenderer|' . 
-				\'modules/musicplayer|' . 
-				\'modules/sharedbalancing|' . 
-				\'modules/sharedtypes|' . 
-				\'modules/soundconfig|' . 
-				\'modules/systeminfo|' . 
-				\'modules/videorecording|' . 
-				\'modules/vungle|' . 
+				\ 'dir':  '\.git$\|\.hg$\|\.svn$\|library|configuration$',
 				\ 'file': '\v\.(js|json|dll|class|scala|html)$',
 				\ 'link': 'SOME_BAD_SYMBOLIC_LINKS',
 				\ }
