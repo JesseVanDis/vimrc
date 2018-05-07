@@ -403,6 +403,7 @@ set nospell
 let g:ale_linters = {
  \   'python': ['flake8', 'mypy'],
  \   'go': ['gofmt', 'golint', 'go vet'],
+ \   'cpp': ['clang', 'clangcheck', 'clangtidy', 'cppcheck', 'cpplint', 'g++'],
  \   'c': 'all'
  \ }
 let g:ale_python_flake8_options='--ignore=E225,E402,E501'
