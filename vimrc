@@ -484,7 +484,26 @@ if isdirectory($HOME . '/projects/rr-tournament')
 	nnoremap <F8> :copen<CR>:AsyncRun! ../../commands.sh s2<CR>
 
 	set path+=/home/jvandis/projects/rr-tournament/code/client/build/linux/debug/include
-	set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.js,*.mk,*.scala,*.class,*.jar,*.json,*.*~,*/.git/*,*/server,*/scripts,*/tools,*/modules/boost-1.53.0,*/modules/boost_regexp,*/client/build/android,*/client/build/emscripten
+	" set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.js,*.mk,*.scala,*.class,*.jar,*.json,*.*~,*/.git/*,*/server,*/scripts,*/tools,*/modules/boost-1.53.0,*/modules/boost_regexp,*/client/build/android,*/client/build/emscripten
+	set wildignore+=*/tmp/*,
+				\*.so,
+				\*.swp,
+				\*.zip,
+				\*.js,
+				\*.mk,
+				\*.scala,
+				\*.class,
+				\*.jar,
+				\*.json,
+				\*.*~,
+				\*/.git/*,
+				\*/server,
+				\*/scripts,
+				\*/tools,
+				\*/modules/boost-1.53.0,
+				\*/modules/boost_regexp,
+				\*/client/build/android,
+				\*/client/build/emscripten
 
 	let g:ctrlp_custom_ignore = {
 				\ 'dir':  '\.git$\|\.hg$\|\.svn$\|library|configuration|modules$',
