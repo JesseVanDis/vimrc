@@ -427,6 +427,7 @@ let g:ale_linters = {
  \   'c': 'all'
  \ }
 
+" run ALEFix to fix
 let g:ale_fixers = {
  \ 'javascript': ['eslint']
  \ }
