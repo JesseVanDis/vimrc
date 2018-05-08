@@ -426,6 +426,11 @@ let g:ale_linters = {
  \   'cpp': ['clang', 'clangcheck', 'clangtidy', 'cppcheck', 'cpplint', 'g++'],
  \   'c': 'all'
  \ }
+
+let g:ale_fixers = {
+ \ 'javascript': ['eslint']
+ \ }
+
 let g:ale_python_flake8_options='--ignore=E225,E402,E501'
 let g:ale_python_mypy_options='--ignore-missing-imports'
 
