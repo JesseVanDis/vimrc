@@ -124,6 +124,8 @@ Plugin 'easymotion/vim-easymotion'
 Plugin 'fatih/molokai'
 Plugin 'skywind3000/asyncrun.vim'
 Plugin 'oblitum/YouCompleteMe'
+" autocmd FileType go Plugin 'oblitum/YouCompleteMe'
+
 Plugin 'w0rp/ale'
 "
 "
@@ -138,6 +140,7 @@ Plugin 'w0rp/ale'
 call vundle#end()
 filetype plugin indent on
 set nocompatible
+
 
 " Build youcompleteme
 if isdirectory($HOME . '/.vim/bundle/youcompleteme')
@@ -351,7 +354,7 @@ endif
 
 " autocmd FileType html set spell
 autocmd FileType python set efm=%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\ ]%\\@=%m
-autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
+" autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType python set omnifunc=pythoncomplete#Complete
 autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
 autocmd FileType phtml set omnifunc=htmlcomplete#CompleteTags
@@ -452,10 +455,10 @@ let g:javascript_plugin_jsdoc = 1
 let g:ycm_confirm_extra_conf = 0
 " let g:ycm_show_diagnostics_ui = 0
 let g:ycm_show_diagnostics_ui = 1
-
 let g:ycm_add_preview_to_completeopt = 1
 " let g:ycm_autoclose_preview_window_after_completion = 1
 " let g:ycm_autoclose_preview_window_after_insertion = 1
+let g:ycm_filetype_blacklist = { 'javascript' : 1 }
 
 hi EasyMotionTarget2First ctermbg=none ctermfg=red
 hi EasyMotionTarget2Second ctermbg=none ctermfg=brown
