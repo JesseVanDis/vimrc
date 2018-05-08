@@ -459,6 +459,7 @@ let g:ycm_add_preview_to_completeopt = 1
 " let g:ycm_autoclose_preview_window_after_completion = 1
 " let g:ycm_autoclose_preview_window_after_insertion = 1
 let g:ycm_filetype_blacklist = { 'javascript' : 1 }
+" https://medium.com/@alexlafroscia/writing-js-in-vim-4c971a95fd49
 
 hi EasyMotionTarget2First ctermbg=none ctermfg=red
 hi EasyMotionTarget2Second ctermbg=none ctermfg=brown
