@@ -71,24 +71,30 @@ silent !dpkg -s cscope 2>/dev/null >/dev/null || sudo apt-get install cscope
 silent !dpkg -s exuberant-ctags 2>/dev/null >/dev/null || sudo apt-get install exuberant-ctags
 silent !dpkg -s silversearcher-ag 2>/dev/null >/dev/null || sudo apt-get install silversearcher-ag
 
-" Javascript stuff TODO: tedect javascript files
-silent !dpkg -s npm 2>/dev/null >/dev/null || sudo apt-get install npm
-if !isdirectory('../node_modules')
-	" ToDeleteAll: sudo npm ls -gp --depth=0 | sudo awk -F/ '/node_modules/ && !/\/npm$/ {print $NF}' | sudo xargs npm -g rm
-	" silent !npm init -f
-	silent !{ cd ../; npm init -f; }
-	silent !npm list --depth 1 --global eslint > /dev/null 2>&1 || sudo npm install "eslint@>=5.0.0-alpha.2" -g
-	silent !npm list --depth 1 --global eslint-plugin-import > /dev/null 2>&1 || sudo npm install "eslint-plugin-import@>=2.8.0" -g
-	silent !npm list --depth 1 --global eslint-plugin-node > /dev/null 2>&1 || sudo npm install "eslint-plugin-node@>=5.2.1" -g
-	silent !npm list --depth 1 --global eslint-plugin-promise > /dev/null 2>&1 || sudo npm install "eslint-plugin-promise@>=3.6.0" -g
-	silent !npm list --depth 1 --global eslint-plugin-standard > /dev/null 2>&1 || sudo npm install "eslint-plugin-standard@>=3.0.1" -g
-	silent !npm list --depth 1 --global eslint-config-standard > /dev/null 2>&1 || sudo npm install eslint-config-standard -g
-	" eslint-config-standard@12.0.0-alpha.0 
-	silent !echo "__________________________________________________"
-	silent !echo "  Use: populair -> standard -> javascript -> yes  "
-	silent !echo "--------------------------------------------------"
-	silent !{ cd ../; eslint --init; }
-endif
+function InstallJavascriptStuff()
+	" Javascript stuff TODO: tedect javascript files
+	silent !dpkg -s npm 2>/dev/null >/dev/null || sudo apt-get install npm
+	if !isdirectory('../node_modules')
+		" ToDeleteAll: sudo npm ls -gp --depth=0 | sudo awk -F/ '/node_modules/ && !/\/npm$/ {print $NF}' | sudo xargs npm -g rm
+		" silent !npm init -f
+		silent !echo "current dir:"
+		silent !echo $(pwd)
+		silent !{ cd ../; npm init -f; }
+		silent !npm list --depth 1 --global eslint > /dev/null 2>&1 || sudo npm install "eslint@>=5.0.0-alpha.2" -g
+		silent !npm list --depth 1 --global eslint-plugin-import > /dev/null 2>&1 || sudo npm install "eslint-plugin-import@>=2.8.0" -g
+		silent !npm list --depth 1 --global eslint-plugin-node > /dev/null 2>&1 || sudo npm install "eslint-plugin-node@>=5.2.1" -g
+		silent !npm list --depth 1 --global eslint-plugin-promise > /dev/null 2>&1 || sudo npm install "eslint-plugin-promise@>=3.6.0" -g
+		silent !npm list --depth 1 --global eslint-plugin-standard > /dev/null 2>&1 || sudo npm install "eslint-plugin-standard@>=3.0.1" -g
+		silent !npm list --depth 1 --global eslint-config-standard > /dev/null 2>&1 || sudo npm install eslint-config-standard -g
+		" eslint-config-standard@12.0.0-alpha.0 
+		silent !echo "__________________________________________________"
+		silent !echo "  Use: populair -> standard -> javascript -> yes  "
+		silent !echo "--------------------------------------------------"
+		silent !{ cd ../; eslint --init; }
+	endif
+endfunction
+
+autocmd BufNewFile *.js call InstallJavascriptStuff() 
 
 if has("python3")
   set pyxversion=3
