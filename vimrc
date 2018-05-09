@@ -3,10 +3,6 @@ if v:progname =~? "evim"
   finish
 endif
 
-" run these commands for this vimrc to work:
-" sudo apt install python3-pip
-" sudo pip3 install neovim
-
 " sync vimrc
 let $vimrcsync_folder = $HOME . '/.vim/vimrcsync'
 let $vimrcsync_usrfile = $vimrcsync_folder . '/usr.usr'
@@ -63,6 +59,8 @@ endfunction
 command! UploadVimRc call UploadVimRc()
 command! DownloadVimRc call DownloadVimRc()
 
+let pythonDir = substitute(system('python3 -m site | grep -F "USER_SITE: ' . "'" . '" | awk -F"' . "'" . "\" '{print $2}'"), '\n\+$', '', '')
+
 silent !dpkg -s build-essential 2>/dev/null >/dev/null || sudo apt-get install build-essential
 silent !dpkg -s cmake 2>/dev/null >/dev/null || sudo apt-get install cmake
 silent !dpkg -s python-dev 2>/dev/null >/dev/null || sudo apt-get install python-dev
@@ -71,11 +69,12 @@ silent !dpkg -s cscope 2>/dev/null >/dev/null || sudo apt-get install cscope
 " TODO: Use universal Ctags
 silent !dpkg -s exuberant-ctags 2>/dev/null >/dev/null || sudo apt-get install exuberant-ctags
 silent !dpkg -s silversearcher-ag 2>/dev/null >/dev/null || sudo apt-get install silversearcher-ag
-
 " Javascript
 silent !dpkg -s python3-pip 2>/dev/null >/dev/null || sudo apt-get install python3-pip
-" sudo pip3 install neovim
-
+if !isdirectory(pythonDir . "/neovim")
+	" this command is a bit slow... (that why we just first check the folder which is simply faster
+	silent !pip3 list --format=legacy | grep -F neovim || pip3 install neovim
+endif
 
 function InstallJavascriptStuff()
 	" Javascript stuff TODO: tedect javascript files
@@ -137,7 +136,7 @@ Plugin 'fatih/molokai'
 Plugin 'skywind3000/asyncrun.vim'
 Plugin 'oblitum/YouCompleteMe'
 
-" make sure: " sudo pip3 install neovim
+" javascript autocomplete
 Plugin 'Shougo/deoplete.nvim'
 Plugin 'roxma/nvim-yarp'
 Plugin 'roxma/vim-hug-neovim-rpc'
