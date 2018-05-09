@@ -4,6 +4,7 @@ if v:progname =~? "evim"
 endif
 
 " run these commands for this vimrc to work:
+" sudo apt install python3-pip
 " sudo pip3 install neovim
 
 " sync vimrc
@@ -71,6 +72,11 @@ silent !dpkg -s cscope 2>/dev/null >/dev/null || sudo apt-get install cscope
 silent !dpkg -s exuberant-ctags 2>/dev/null >/dev/null || sudo apt-get install exuberant-ctags
 silent !dpkg -s silversearcher-ag 2>/dev/null >/dev/null || sudo apt-get install silversearcher-ag
 
+" Javascript
+silent !dpkg -s python3-pip 2>/dev/null >/dev/null || sudo apt-get install python3-pip
+" sudo pip3 install neovim
+
+
 function InstallJavascriptStuff()
 	" Javascript stuff TODO: tedect javascript files
 	silent !dpkg -s npm 2>/dev/null >/dev/null || sudo apt-get install npm
@@ -130,7 +136,11 @@ Plugin 'easymotion/vim-easymotion'
 Plugin 'fatih/molokai'
 Plugin 'skywind3000/asyncrun.vim'
 Plugin 'oblitum/YouCompleteMe'
-" autocmd FileType go Plugin 'oblitum/YouCompleteMe'
+
+" make sure: " sudo pip3 install neovim
+Plugin 'Shougo/deoplete.nvim'
+Plugin 'roxma/nvim-yarp'
+Plugin 'roxma/vim-hug-neovim-rpc'
 
 Plugin 'w0rp/ale'
 "
@@ -147,6 +157,7 @@ call vundle#end()
 filetype plugin indent on
 set nocompatible
 
+let g:deoplete#enable_at_startup = 1
 
 " Build youcompleteme
 if isdirectory($HOME . '/.vim/bundle/youcompleteme')
