@@ -265,6 +265,8 @@ vnoremap * "qy/<C-R>q<CR>
 nnoremap <C-H> :cp<CR>
 nnoremap <C-L> :cn<CR>
 
+autocmd BufNewFile,BufRead *.html nnoremap <C-]> "ayiw:call SearchText_OpenFirst("function.<C-r>a", "html,js")<CR>
+
 " switch header/source
 autocmd BufNewFile,BufRead *.hpp nnoremap ,l :e %:r.cpp<CR>
 autocmd BufNewFile,BufRead *.cpp nnoremap ,l :e %:r.hpp<CR>
@@ -272,18 +274,36 @@ autocmd BufNewFile,BufRead *.cpp nnoremap ,l :e %:r.hpp<CR>
 " generate function in cpp
 autocmd BufNewFile,BufRead *.hpp nnoremap ,c "xyy/(<CR>Nh*<C-o>:e %:r.cpp<CR>nB"cyiw/{<CR>%o<Esc>"xpv=w"cPa::<Esc>Bhvbelc <Esc>$xo{<CR><CR>}<Esc>kaa<Esc>v=x:noh<CR>
 
-function! SearchText(text, filterExt)
+function! SearchText_Begin(text, filterExt)
 	let $searchCommand = "grep -R -r -i --include=\*.{" . a:filterExt . ",boooooool} " . a:text . " . > ~/.searchresults.txt_1~"
 	silent exec $searchCommand
 	silent ! echo "" > ~/.searchresults.txt~
 	silent ! expand -t 4 ~/.searchresults.txt_1~ > ~/.searchresults.txt~
+endfunction
+
+function! SearchText_End()
+	call delete($HOME . "/.searchresults.txt_1~")
+	call delete($HOME . "/.searchresults.txt~")
+endfunction
+
+function! SearchText(text, filterExt)
+	call SearchText_Begin(a:text, a:filterExt)
 	cexpr system("cat ~/.searchresults.txt~")	
 	execute "normal 1 \<c-o>"
 	copen
 	execute "normal /" . a:text . "\<CR>"
 	redraw!
-	call delete($HOME . "/.searchresults.txt_1~")
-	call delete($HOME . "/.searchresults.txt~")
+	call SearchText_End()
+endfunction
+
+function! SearchText_OpenFirst(text, filterExt)
+	call SearchText_Begin(a:text, a:filterExt)
+	let $filename = substitute(system("head -1 ~/.searchresults.txt~ | awk -F: '{print $1}'"), "\n", "", "")
+	let $line = substitute(system("head -1 ~/.searchresults.txt~ | awk -F: '{print $2}'"), "\n", "", "")
+	execute "normal! :e +" . $line . " " . $filename . "\<CR>"
+	redraw!
+	execute "normal! :echo('" . $filename . ":" . $line . "')\<CR>"
+ 	call SearchText_End()
 endfunction
 
 vnoremap ,f <Esc>:let @s=@<CR>gv"ay:let @"=@s<CR>:call SearchText("<C-r>a", "cpp,hpp,h,go,html,bdef,ds,js,c")<CR>
