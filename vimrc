@@ -275,7 +275,7 @@ autocmd BufNewFile,BufRead *.cpp nnoremap ,l :e %:r.hpp<CR>
 autocmd BufNewFile,BufRead *.hpp nnoremap ,c "xyy/(<CR>Nh*<C-o>:e %:r.cpp<CR>nB"cyiw/{<CR>%o<Esc>"xpv=w"cPa::<Esc>Bhvbelc <Esc>$xo{<CR><CR>}<Esc>kaa<Esc>v=x:noh<CR>
 
 function! SearchText_Begin(text, filterExt)
-	let $searchCommand = "grep -R -r -i --include=\*.{" . a:filterExt . ",boooooool} " . a:text . " . > ~/.searchresults.txt_1~"
+	let $searchCommand = "grep -F -R -r -i --include=\*.{" . a:filterExt . ",boooooool} " . a:text . " . > ~/.searchresults.txt_1~"
 	silent exec $searchCommand
 	silent ! echo "" > ~/.searchresults.txt~
 	silent ! expand -t 4 ~/.searchresults.txt_1~ > ~/.searchresults.txt~
