@@ -121,27 +121,31 @@ if !isdirectory($HOME . '/.vim/bundle/vundle')
     silent !git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
 endif
 
-set nocompatible
-filetype off
-filetype plugin indent off
+" set nocompatible
+" filetype off
+" filetype plugin indent off
 set runtimepath+=$GOROOT/misc/vim
 set rtp+=~/.vim/bundle/vundle/
-call vundle#begin()
+" call vundle#begin()
 
-Plugin 'scrooloose/nerdtree'
-Plugin 'kien/ctrlp.vim'
-Plugin 'fatih/vim-go'
-Plugin 'easymotion/vim-easymotion'
-Plugin 'fatih/molokai'
-Plugin 'skywind3000/asyncrun.vim'
-Plugin 'oblitum/YouCompleteMe'
+" Plugin 'scrooloose/nerdtree'
+" Plugin 'kien/ctrlp.vim'
+" Plugin 'fatih/vim-go'
+" Plugin 'easymotion/vim-easymotion'
+" Plugin 'fatih/molokai'
+" Plugin 'skywind3000/asyncrun.vim'
+" Plugin 'oblitum/YouCompleteMe'
 
 " javascript autocomplete
-Plugin 'Shougo/deoplete.nvim'
-Plugin 'roxma/nvim-yarp'
-Plugin 'roxma/vim-hug-neovim-rpc'
+" Plugin 'Shougo/deoplete.nvim'
+" Plugin 'roxma/nvim-yarp'
+" Plugin 'roxma/vim-hug-neovim-rpc'
 
-Plugin 'w0rp/ale'
+" Plugin 'w0rp/ale'
+
+
+
+
 "
 "
 " Plugin 'wesleyche/SrcExpl'
@@ -152,9 +156,34 @@ Plugin 'w0rp/ale'
 " Plugin 'scrooloose/syntastic'
 " Plugin 'bling/vim-airline'
 " All of your Plugins must be added before the following line
-call vundle#end()
-filetype plugin indent on
-set nocompatible
+" call vundle#end()
+
+
+call plug#begin('~/.vim/plugged')
+
+" generic
+Plug 'scrooloose/nerdtree'
+Plug 'kien/ctrlp.vim'
+Plug 'fatih/vim-go'
+Plug 'easymotion/vim-easymotion'
+Plug 'fatih/molokai'
+Plug 'skywind3000/asyncrun.vim'
+
+" cpp
+Plug 'oblitum/YouCompleteMe', {'for': 'cpp'}
+
+" javascript
+Plug 'Shougo/deoplete.nvim', {'for': 'javascript'}
+Plug 'roxma/nvim-yarp', {'for': 'javascript'}
+Plug 'roxma/vim-hug-neovim-rpc', {'for': 'javascript'}
+Plug 'w0rp/ale', {'for': 'javascript'}
+"
+call plug#end()
+
+
+
+" filetype plugin indent on
+" set nocompatible
 
 let g:deoplete#enable_at_startup = 1
 
