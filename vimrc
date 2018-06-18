@@ -170,7 +170,7 @@ Plug 'fatih/molokai'
 Plug 'skywind3000/asyncrun.vim'
 
 " cpp
-Plug 'oblitum/YouCompleteMe', {'for': 'cpp'}
+Plug 'oblitum/YouCompleteMe'
 
 " javascript
 Plug 'Shougo/deoplete.nvim', {'for': 'javascript'}
@@ -200,6 +200,14 @@ if isdirectory($HOME . '/.vim/bundle/YouCompleteMe')
 	if !isdirectory($HOME . '/.vim/bundle/YouCompleteMe_didbuild')
 		silent !cd ~/.vim/bundle/YouCompleteMe && ./install.py --clang-completer
 		silent !mkdir -p ~/.vim/bundle/YouCompleteMe_didbuild
+	endif
+endif
+
+" Build youcompleteme ( vim-plug )
+if isdirectory($HOME . '/.vim/plugged/YouCompleteMe')
+	if !isdirectory($HOME . '/.vim/plugged/YouCompleteMe_didbuild')
+		silent !cd ~/.vim/plugged/YouCompleteMe && ./install.py --clang-completer
+		silent !mkdir -p ~/.vim/plugged/YouCompleteMe_didbuild
 	endif
 endif
 
