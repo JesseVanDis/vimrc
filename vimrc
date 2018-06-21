@@ -186,6 +186,9 @@ call plug#end()
 " set nocompatible
 
 let g:deoplete#enable_at_startup = 1
+" let g:deoplete#auto_complete = 0
+
+
 
 " Build youcompleteme
 if isdirectory($HOME . '/.vim/bundle/youcompleteme')
@@ -425,16 +428,47 @@ else
   set undofile		" keep an undo file (undo changes after closing)
 endif
 
+
+" function OnLoadFiletype(filetype)
+" 	let l:useDeoplete = 0
+" 	if a:filetype == "javascript"
+" 		let l:useDeoplete = 1
+" 	elseif a:filetype == "cpp"
+" 		
+" 	endif
+" 
+" endfunction
+
+autocmd FileType javascript call deoplete#custom#option('auto_complete_delay', v:true)
+autocmd FileType cpp call deoplete#custom#option('auto_complete_delay', v:false)
+autocmd FileType go call deoplete#custom#option('auto_complete_delay', v:false)
+autocmd FileType go call deoplete#custom#option('auto_complete_delay', v:false)
+
+
 " autocmd FileType html set spell
 autocmd FileType python set efm=%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\ ]%\\@=%m
 " autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType python set omnifunc=pythoncomplete#Complete
+autocmd FileType python call deoplete#custom#option('auto_complete', v:false)
+
 autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
-autocmd FileType phtml set omnifunc=htmlcomplete#CompleteTags
+autocmd FileType html call deoplete#custom#option('auto_complete', v:false)
+
 autocmd FileType css set omnifunc=csscomplete#CompleteCSS
+autocmd FileType css call deoplete#custom#option('auto_complete', v:false)
+
 autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
-autocmd FileType sql set omnifunc=sqlcomplete#Complete
+autocmd FileType xml call deoplete#custom#option('auto_complete', v:false)
+
 autocmd FileType java setlocal omnifunc=javacomplete#Complete
+autocmd FileType java call deoplete#custom#option('auto_complete', v:false)
+
+autocmd FileType javascript call deoplete#custom#option('auto_complete', v:true)
+
+autocmd FileType go call deoplete#custom#option('auto_complete', v:false)
+
+autocmd FileType cpp call deoplete#custom#option('auto_complete', v:false)
+
 " autocmd FileType go setlocal omnifunc=gocomplete#Complete
 
 " let g:neocomplcache_omni_patterns.go = '\h\w*%.'
