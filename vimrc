@@ -435,45 +435,47 @@ else
 endif
 
 
-" function OnLoadFiletype(filetype)
-" 	let l:useDeoplete = 0
-" 	if a:filetype == "javascript"
-" 		let l:useDeoplete = 1
-" 	elseif a:filetype == "cpp"
-" 		
-" 	endif
-" 
-" endfunction
+function OnLoadFiletype(filetype)
+ 	let l:useDeoplete = 0
+ 	if a:filetype == "javascript"
+ 		let l:useDeoplete = 1
+ 	elseif a:filetype == "cpp"
 
-autocmd FileType javascript call deoplete#custom#option('auto_complete_delay', v:true)
-autocmd FileType cpp call deoplete#custom#option('auto_complete_delay', v:false)
-autocmd FileType go call deoplete#custom#option('auto_complete_delay', v:false)
-autocmd FileType go call deoplete#custom#option('auto_complete_delay', v:false)
+	endif
+
+	if exists(deoplete)
+		if l:useDeoplete == 1
+			call deoplete#custom#option('auto_complete', v:true)
+		else
+			call deoplete#custom#option('auto_complete', v:false)
+		endif
+	endif
+endfunction
 
 
 " autocmd FileType html set spell
 autocmd FileType python set efm=%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\ ]%\\@=%m
 " autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType python set omnifunc=pythoncomplete#Complete
-autocmd FileType python call deoplete#custom#option('auto_complete', v:false)
+autocmd FileType python call OnLoadFiletype("python")
 
 autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
-autocmd FileType html call deoplete#custom#option('auto_complete', v:false)
+autocmd FileType python call OnLoadFiletype("html")
 
 autocmd FileType css set omnifunc=csscomplete#CompleteCSS
-autocmd FileType css call deoplete#custom#option('auto_complete', v:false)
+autocmd FileType python call OnLoadFiletype("css")
 
 autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
-autocmd FileType xml call deoplete#custom#option('auto_complete', v:false)
+autocmd FileType python call OnLoadFiletype("xml")
 
 autocmd FileType java setlocal omnifunc=javacomplete#Complete
-autocmd FileType java call deoplete#custom#option('auto_complete', v:false)
+autocmd FileType java call OnLoadFiletype("java")
 
-autocmd FileType javascript call deoplete#custom#option('auto_complete', v:true)
+autocmd FileType javascript call OnLoadFiletype("javascript")
 
-autocmd FileType go call deoplete#custom#option('auto_complete', v:false)
+autocmd FileType go call OnLoadFiletype("go")
 
-autocmd FileType cpp call deoplete#custom#option('auto_complete', v:false)
+autocmd FileType cpp call OnLoadFiletype("cpp")
 
 " autocmd FileType go setlocal omnifunc=gocomplete#Complete
 
