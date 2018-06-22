@@ -331,13 +331,12 @@ function! SearchText_End()
 endfunction
 
 function! SearchText(text, filterExt)
+	let $henk = a:text
 	call SearchText_Begin(a:text, a:filterExt)
 	cexpr system("cat ~/.searchresults.txt~")	
 	execute "normal 1 \<c-o>"
 	copen
-	" execute "normal /" . a:text . "\<CR>"
-	" probably not working because another screen with some error shows first
-	execute "match Error /\c" . a:text . "\<CR>"
+	execute "match Error /\\c" . a:text . "/"
 	redraw!
 	call SearchText_End()
 endfunction
