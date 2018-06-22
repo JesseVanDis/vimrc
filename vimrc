@@ -335,7 +335,9 @@ function! SearchText(text, filterExt)
 	cexpr system("cat ~/.searchresults.txt~")	
 	execute "normal 1 \<c-o>"
 	copen
-	execute "normal /" . a:text . "\<CR>"
+	" execute "normal /" . a:text . "\<CR>"
+	" probably not working because another screen with some error shows first
+	execute "match Error /\c" . a:text . "\<CR>"
 	redraw!
 	call SearchText_End()
 endfunction
@@ -350,8 +352,8 @@ function! SearchText_OpenFirst(text, filterExt)
  	call SearchText_End()
 endfunction
 
-vnoremap ,f <Esc>:let @s=@<CR>gv"ay:let @"=@s<CR>:call SearchText("<C-r>a", "cpp,hpp,h,go,html,bdef,ds,js,c")<CR>
-nnoremap ,f "ayiw:call SearchText("<C-r>a", "cpp,hpp")<Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><left>
+vnoremap ,f "ayiw:call SearchText("<C-r>a", "")<Left><Left><Left><Left><Left><left>
+nnoremap ,f "ayiw:call SearchText("<C-r>a", "")<Left><Left><Left><Left><Left><left>
 
 autocmd BufNewFile,BufRead *.go nnoremap ,f "ayiw:call SearchText("<C-r>a", "go,js,html")<Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><left><Left><left><left>
 autocmd BufNewFile,BufRead *.go vnoremap ,f "aylh:call SearchText("<C-r>a", "go,js,html")<Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><left><Left><left><left>
