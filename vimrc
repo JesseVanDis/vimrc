@@ -442,7 +442,7 @@ function OnLoadFiletype(filetype)
 
 	endif
 
-	if exists(deoplete)
+	if exists("*deoplete")
 		if l:useDeoplete == 1
 			call deoplete#custom#option('auto_complete', v:true)
 		else
