@@ -315,6 +315,8 @@ autocmd BufNewFile,BufRead *.cpp nnoremap ,l :e %:r.hpp<CR>
 autocmd BufNewFile,BufRead *.hpp nnoremap ,c "xyy/(<CR>Nh*<C-o>:e %:r.cpp<CR>nB"cyiw/{<CR>%o<Esc>"xpv=w"cPa::<Esc>Bhvbelc <Esc>$xo{<CR><CR>}<Esc>kaa<Esc>v=x:noh<CR>
 
 function! SearchText_Begin(text, filterExt)
+	call delete($HOME . "/.searchresults.txt_1~")
+	call delete($HOME . "/.searchresults.txt~")
 	if empty(a:filterExt)
 		let $searchCommand = "grep -F -R -r -i --include=\*.* " . a:text . " . > ~/.searchresults.txt_1~"
 	else
@@ -326,8 +328,8 @@ function! SearchText_Begin(text, filterExt)
 endfunction
 
 function! SearchText_End()
-	call delete($HOME . "/.searchresults.txt_1~")
-	call delete($HOME . "/.searchresults.txt~")
+	" call delete($HOME . "/.searchresults.txt_1~")
+	" call delete($HOME . "/.searchresults.txt~")
 endfunction
 
 function! SearchText(text, filterExt)
