@@ -3,6 +3,8 @@ if v:progname =~? "evim"
   finish
 endif
 
+set nocompatible " be iMproved, required
+
 " sync vimrc
 let $vimrcsync_folder = $HOME . '/.vim/vimrcsync'
 let $vimrcsync_usrfile = $vimrcsync_folder . '/usr.usr'
@@ -101,8 +103,11 @@ endfunction
 
 autocmd BufNewFile *.js call InstallJavascriptStuff() 
 
-if has("python3")
-  set pyxversion=3
+
+if !has('nvim')
+	if has("python3")
+		set pyxversion=3 " Thiscauses error on nvim.... disable it temporarily
+	endif
 endif
 
 " Golang path
@@ -263,9 +268,10 @@ if has('langmap') && exists('+langnoremap')
   set langnoremap
 endif
 
-" The matchit plugin makes the % command work better, but it is not backwards
-" compatile
-packadd matchit
+" The matchit plugin makes the % command work better, but it is not backwards compatile
+if !has('nvim')
+	packadd matchit
+endif
 
 " autocmd vimenter * NERDTree
 autocmd vimenter * wincmd l
@@ -444,7 +450,8 @@ function OnLoadFiletype(filetype)
 
 	endif
 
-	if exists("*deoplete")
+	" if exists("*deoplete")
+	if exists("*deoplete#custom#option")
 		if l:useDeoplete == 1
 			call deoplete#custom#option('auto_complete', v:true)
 		else
