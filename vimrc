@@ -171,7 +171,6 @@ Plug 'scrooloose/nerdtree'
 Plug 'kien/ctrlp.vim'
 Plug 'fatih/vim-go'
 Plug 'easymotion/vim-easymotion'
-Plug 'fatih/molokai'
 Plug 'skywind3000/asyncrun.vim'
 
 " cpp
@@ -182,6 +181,12 @@ Plug 'Shougo/deoplete.nvim', {'for': 'javascript'}
 Plug 'roxma/nvim-yarp', {'for': 'javascript'}
 Plug 'roxma/vim-hug-neovim-rpc', {'for': 'javascript'}
 Plug 'w0rp/ale', {'for': 'javascript'}
+
+" Theme
+"" Plug 'fatih/molokai'
+"" Plug 'colepeters/spacemacs-theme.vim'
+Plug 'lifepillar/vim-solarized8'
+
 "
 call plug#end()
 
@@ -491,7 +496,17 @@ autocmd FileType cpp call OnLoadFiletype("cpp")
 
 autocmd InsertEnter,InsertLeave * set cul!   " Indicate insert mode by changing selected line layout
 
-colorscheme molokai
+" colorscheme molokai
+
+"if (has("termguicolors"))
+"  set termguicolors
+"endif
+"set background=dark
+"colorscheme spacemacs-theme
+
+set background=light
+colorscheme solarized8
+
 hi MatchParen      ctermfg=208 ctermbg=233 cterm=bold 
 
 let g:ctrlp_by_filename = 1
