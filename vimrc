@@ -507,6 +507,11 @@ autocmd InsertEnter,InsertLeave * set cul!   " Indicate insert mode by changing 
 set background=light
 colorscheme solarized8
 
+if has('gui_running')
+  set guifont=Monospace\ 12
+endif
+
+
 hi MatchParen      ctermfg=208 ctermbg=233 cterm=bold 
 
 let g:ctrlp_by_filename = 1
