@@ -71,6 +71,8 @@ silent !dpkg -s cscope 2>/dev/null >/dev/null || sudo apt-get install cscope
 " TODO: Use universal Ctags
 silent !dpkg -s exuberant-ctags 2>/dev/null >/dev/null || sudo apt-get install exuberant-ctags
 silent !dpkg -s silversearcher-ag 2>/dev/null >/dev/null || sudo apt-get install silversearcher-ag
+" NeoVim
+silent !dpkg -s qtbase5-dev 2>/dev/null >/dev/null || sudo apt-get install qtbase5-dev
 " Javascript
 silent !dpkg -s python3-pip 2>/dev/null >/dev/null || sudo apt-get install python3-pip
 if !isdirectory(pythonDir . "/neovim")
@@ -101,6 +103,19 @@ function InstallJavascriptStuff()
 	endif
 endfunction
 
+
+function InstallNeoVimQt()
+	if !isdirectory($HOME . "/.vim/neovimqt")
+		silent !mkdir -p ~/.vim/neovimqt
+		silent !git clone https://github.com/equalsraf/neovim-qt ~/.vim/neovimqt
+		silent !mkdir -p ~/.vim/neovimqt/neovim-qt/build
+		silent !{ cd ~/.vim/neovimqt/neovim-qt/build/; cmake -DCMAKE_BUILD_TYPE=Release ..; }
+		silent !{ cd ~/.vim/neovimqt/neovim-qt/build/; make; }
+		silent !{ cd ~/.vim/neovimqt/neovim-qt/build/; sudo make install; }
+		:redraw!
+	endif
+endfunction
+
 autocmd BufNewFile *.js call InstallJavascriptStuff() 
 
 
@@ -109,6 +124,9 @@ if !has('nvim')
 		set pyxversion=3 " Thiscauses error on nvim.... disable it temporarily
 	endif
 endif
+
+" Neovim
+call InstallNeoVimQt()
 
 " Golang path
 let $GOPATH = $HOME . '/go'
@@ -131,38 +149,6 @@ endif
 " filetype plugin indent off
 set runtimepath+=$GOROOT/misc/vim
 set rtp+=~/.vim/bundle/vundle/
-" call vundle#begin()
-
-" Plugin 'scrooloose/nerdtree'
-" Plugin 'kien/ctrlp.vim'
-" Plugin 'fatih/vim-go'
-" Plugin 'easymotion/vim-easymotion'
-" Plugin 'fatih/molokai'
-" Plugin 'skywind3000/asyncrun.vim'
-" Plugin 'oblitum/YouCompleteMe'
-
-" javascript autocomplete
-" Plugin 'Shougo/deoplete.nvim'
-" Plugin 'roxma/nvim-yarp'
-" Plugin 'roxma/vim-hug-neovim-rpc'
-
-" Plugin 'w0rp/ale'
-
-
-
-
-"
-"
-" Plugin 'wesleyche/SrcExpl'
-" Plugin 'valloric/youcompleteme'
-" Plugin 'joonty/vdebug', {'rtp': 'vim/'}
-" Plugin 'pangloss/vim-javascript'
-" Plugin 'nsf/gocode'
-" Plugin 'scrooloose/syntastic'
-" Plugin 'bling/vim-airline'
-" All of your Plugins must be added before the following line
-" call vundle#end()
-
 
 call plug#begin('~/.vim/plugged')
 
@@ -187,18 +173,13 @@ Plug 'w0rp/ale', {'for': 'javascript'}
 "" Plug 'colepeters/spacemacs-theme.vim'
 Plug 'lifepillar/vim-solarized8'
 
-"
 call plug#end()
-
-
 
 " filetype plugin indent on
 " set nocompatible
 
 let g:deoplete#enable_at_startup = 1
 " let g:deoplete#auto_complete = 0
-
-
 
 " Build youcompleteme
 if isdirectory($HOME . '/.vim/bundle/youcompleteme')
