@@ -508,7 +508,7 @@ set background=light
 colorscheme solarized8
 
 if has('gui_running')
-  set guifont=Monospace\ 12
+  set guifont=Monospace\ 11
 endif
 
 
