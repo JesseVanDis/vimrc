@@ -45,20 +45,22 @@ function UploadVimRc()
 	silent let $pushCmd = "git -C " . $vimrcsync_gitfolder . " push"
 	echo "copying .vimrc.. (1/5)"
 	silent ! $copyCmd
-	echo "copying creating commit.. (2/5)"
+	echo "creating commit.. (2/5)"
 	silent ! $addCmd
-	echo "copying committing.. (3/5)"
+	echo "committing.. (3/5)"
 	silent ! $commitCmd
-	echo "copying pushing.. (4/5)"
+	echo "pushing.. (4/5)"
 	silent ! $pushCmd
 	echo "done! (5/5)"
 	:redraw!
 endfunction
 
 function DownloadVimRc()
+	echo "pulling.. (1/2)"
 	call SetupVimRcSync()
 	silent let $copyCmd = "cp " . $vimrcsync_gitfolder . "/vimrc " . $HOME . "/.vimrc "
 	silent ! $copyCmd
+	echo "done! (2/2)"
 	:redraw!
 	:source ~/.vimrc
 endfunction
