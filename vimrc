@@ -71,7 +71,6 @@ command! DownloadVimRc call DownloadVimRc()
 let pythonDir = substitute(system('python3 -m site | grep -F "USER_SITE: ' . "'" . '" | awk -F"' . "'" . "\" '{print $2}'"), '\n\+$', '', '')
 
 silent !dpkg -s build-essential 2>/dev/null >/dev/null || sudo apt-get install build-essential
-silent !dpkg -s cmake 2>/dev/null >/dev/null || sudo apt-get install cmake
 silent !dpkg -s python-dev 2>/dev/null >/dev/null || sudo apt-get install python-dev
 silent !dpkg -s python3-dev 2>/dev/null >/dev/null || sudo apt-get install python3-dev
 silent !dpkg -s cscope 2>/dev/null >/dev/null || sudo apt-get install cscope
@@ -86,6 +85,41 @@ if !isdirectory(pythonDir . "/neovim")
 	" this command is a bit slow... (that why we just first check the folder which is simply faster
 	silent !pip3 list --format=legacy | grep -F neovim || pip3 install neovim
 endif
+
+function InstallCmake()
+	if !isdirectory($HOME . "/.vim/cmake")
+	 	silent !mkdir -p ~/.vim/cmake
+	 	silent !echo "mkdir -p ~/.vim/cmake/cmakegit" > ~/.vim/cmake/clonesetup.sh
+	 	silent !echo "cd ~/.vim/cmake/cmakegit" >> ~/.vim/cmake/clonesetup.sh
+		silent !echo "wget https://cmake.org/files/v3.12/cmake-3.12.2.tar.gz" >> ~/.vim/cmake/clonesetup.sh
+		silent !echo "tar -xvzf cmake-3.12.2.tar.gz" >> ~/.vim/cmake/clonesetup.sh
+		silent !echo "cd ./cmake-3.12.2/" >> ~/.vim/cmake/clonesetup.sh
+		silent !echo "./bootstrap --system-curl" >> ~/.vim/cmake/clonesetup.sh
+		silent !echo "make" >> ~/.vim/cmake/clonesetup.sh
+		silent !echo "sudo make install" >> ~/.vim/cmake/clonesetup.sh
+	 	silent !chmod +x ~/.vim/cmake/clonesetup.sh
+	 	silent !xterm -e ~/.vim/cmake/clonesetup.sh
+	 	:redraw!
+	endif
+endfunction
+call InstallCmake()
+
+function InstallNeoVimQt()
+	if !isdirectory($HOME . "/.vim/neovimqt")
+	 	silent !mkdir -p ~/.vim/neovimqt
+	 	silent !echo "mkdir -p ~/.vim/neovimqt/neovim-qt" > ~/.vim/neovimqt/clonesetup.sh
+	 	silent !echo "git clone https://github.com/equalsraf/neovim-qt ~/.vim/neovimqt/neovim-qt" >> ~/.vim/neovimqt/clonesetup.sh
+	 	silent !echo "mkdir -p ~/.vim/neovimqt/neovim-qt/build" >> ~/.vim/neovimqt/clonesetup.sh
+	 	silent !echo "cd ~/.vim/neovimqt/neovim-qt/build" >> ~/.vim/neovimqt/clonesetup.sh
+	 	silent !echo "cmake -DCMAKE_BUILD_TYPE=Release .." >> ~/.vim/neovimqt/clonesetup.sh
+	 	silent !echo "make" >> ~/.vim/neovimqt/clonesetup.sh
+	 	silent !echo "sudo make install" >> ~/.vim/neovimqt/clonesetup.sh
+	 	silent !chmod +x ~/.vim/neovimqt/clonesetup.sh
+	 	silent !xterm -e ~/.vim/neovimqt/clonesetup.sh
+	 	:redraw!
+	endif
+endfunction
+call InstallNeoVimQt()
 
 function InstallJavascriptStuff()
 	" Javascript stuff TODO: tedect javascript files
@@ -109,31 +143,13 @@ function InstallJavascriptStuff()
 		silent !{ cd ../; eslint --init; }
 	endif
 endfunction
-
-
-function InstallNeoVimQt()
-	if !isdirectory($HOME . "/.vim/neovimqt")
-		silent !mkdir -p ~/.vim/neovimqt
-		silent !git clone https://github.com/equalsraf/neovim-qt ~/.vim/neovimqt
-		silent !mkdir -p ~/.vim/neovimqt/neovim-qt/build
-		silent !{ cd ~/.vim/neovimqt/neovim-qt/build/; cmake -DCMAKE_BUILD_TYPE=Release ..; }
-		silent !{ cd ~/.vim/neovimqt/neovim-qt/build/; make; }
-		silent !{ cd ~/.vim/neovimqt/neovim-qt/build/; sudo make install; }
-		:redraw!
-	endif
-endfunction
-
 autocmd BufNewFile *.js call InstallJavascriptStuff() 
-
 
 if !has('nvim')
 	if has("python3")
 		set pyxversion=3 " Thiscauses error on nvim.... disable it temporarily
 	endif
 endif
-
-" Neovim
-call InstallNeoVimQt()
 
 " Golang path
 let $GOPATH = $HOME . '/go'
@@ -541,6 +557,11 @@ set shortmess+=A
 
 " scroll margin from cursor
 set so=7 
+
+" scrollbars?
+set guioptions=mlrb
+
+set lines=11 columns=42
 
 " disable spellcheck
 set nospell
