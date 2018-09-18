@@ -38,6 +38,7 @@ function SetupVimRcSync()
 endfunction
 
 function UploadVimRc()
+	echo "uploading..."
 	call SetupVimRcSync()
 	silent let $copyCmd = "cp " . $HOME . "/.vimrc " . $vimrcsync_gitfolder . "/vimrc"
 	silent let $addCmd = "git -C " . $vimrcsync_gitfolder . " add ."
@@ -47,6 +48,7 @@ function UploadVimRc()
 	silent ! $addCmd
 	silent ! $commitCmd
 	silent ! $pushCmd
+	echo "done!"
 	:redraw!
 endfunction
 
