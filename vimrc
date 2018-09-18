@@ -179,6 +179,7 @@ Plug 'w0rp/ale', {'for': 'javascript'}
 "" Plug 'fatih/molokai'
 "" Plug 'colepeters/spacemacs-theme.vim'
 Plug 'lifepillar/vim-solarized8'
+Plug 'jonathanfilip/vim-lucius'
 
 call plug#end()
 
@@ -492,8 +493,12 @@ autocmd InsertEnter,InsertLeave * set cul!   " Indicate insert mode by changing 
 "set background=dark
 "colorscheme spacemacs-theme
 
-set background=light
-colorscheme solarized8
+" set background=light
+" colorscheme solarized8
+
+" set background=light
+colorscheme lucius
+LuciusWhite
 
 if has('gui_running')
   set guifont=Monospace\ 11
